@@ -36,12 +36,12 @@ class ClassService:
             else:
                 return 'Comando inválido!'
 
-    def handle_student_message(self, message: str):
-        if self.isStudentPresent(message):
+    def handle_student_message(self, student_number: str):
+        if self.isStudentPresent(student_number):
             return f'Você já marcou presença!'
         else:
-            self.present_students.append(message)
-            return f'Aluno {message} registrou presença!'
+            self.present_students.append(student_number)
+            return f'Aluno {student_number} registrou presença!'
 
     def get_response(self, decoded_data: str):
         message_list = decoded_data.split(',')
@@ -53,16 +53,14 @@ class ClassService:
             return self.handle_student_message(client_message)
 
 initial_class = ''
-initial_response = ''
 initial_present_students = []
 
-new_service = ClassService(initial_class, initial_response, initial_present_students)
+new_service = ClassService(initial_class, initial_present_students)
 
 while True:
     data = connection.recv(1024)
-    decodedData = data.decode()
-    response = new_service.get_response(decodedData)
+    decoded_data = data.decode()
+    response = new_service.get_response(decoded_data)
     print(response)
     encoded_response = response.encode()
     connection.send(encoded_response)
-    
