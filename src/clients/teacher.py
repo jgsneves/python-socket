@@ -11,7 +11,7 @@ msg = ''
 clientCode = 'teacher'
 
 def getIdentifiedMsg(msg, clientCode):
-    return str((msg, clientCode))
+    return f'{msg},{clientCode}'
 
 while True:
     userInput = input()

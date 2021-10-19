@@ -1,4 +1,3 @@
-from array import array
 import socket
 
 PORT = 5050
@@ -14,33 +13,42 @@ print('Servidor está escutando...')
 connection, client = server.accept()
 print('Cliente conectado: ', client)
 
-currentClass = ''
-responseMessage = ''
-presentStudents = []
+class ClassService:
+    def __init__(self, current_class, response_message, present_students) -> None:
+        self.current_class = current_class
+        self.response_message = response_message
+        self.present_students = present_students
 
-def handleTeacherMsg(message: str, currentClass: str):
-    if currentClass == '':
-        currentClass = message
-        return f'A chamada da turma {currentClass} está ativa!'
-    else:
-        if message == currentClass:
-            return f'A chamada da turma {currentClass} foi encerrada!'
+    def handle_teacher_message(self, message: str):
+        if self.current_class == '':
+            self.current_class = message
+            return f'A chamada da turma {self.current_class} está ativa!'
         else:
-            return 'Comando não encontrado'
+            if message == self.current_class:
+                return f'A chamada da turma {self.current_class} está encerrada!'
+            else:
+                return 'Comando inválido!'
 
-def handleStudentMsg(message: str):
-    # TO DO
-    pass
+    def handle_student_message(self):
+        pass
 
-def getResponse(decodedData: tuple, currentClass: str):
-    clientMessage: str = decodedData[0]
-    clientCode: str = decodedData[1]
-    if clientCode == 'teacher':
-        return handleTeacherMsg(clientMessage, currentClass)
-    else:
-        handleStudentMsg(clientMessage)
+    def get_response(self, decoded_data: str):
+        message_list = decoded_data.split(',')
+        client_message: str = message_list[0]
+        client_code: str = message_list[1]
+        if client_code == 'teacher':
+            return self.handle_teacher_message(client_message)
+        else:
+            self.handle_student_message(client_code)
+
+initial_class = ''
+initial_response = ''
+initial_present_students = []
+
+new_service = ClassService(initial_class, initial_response, initial_present_students)
 
 while True:
     data = connection.recv(1024)
     decodedData = data.decode()
-    response = getResponse(decodedData, currentClass)
+    response = new_service.get_response(decodedData)
+    print(response)
