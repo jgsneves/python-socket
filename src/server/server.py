@@ -14,9 +14,8 @@ connection, client = server.accept()
 print('Cliente conectado: ', client)
 
 class ClassService:
-    def __init__(self, current_class, response_message, present_students) -> None:
+    def __init__(self, current_class, present_students) -> None:
         self.current_class = current_class
-        self.response_message = response_message
         self.present_students = present_students
     
     def isStudentPresent(self, student: str):
@@ -66,3 +65,4 @@ while True:
     print(response)
     encoded_response = response.encode()
     connection.send(encoded_response)
+    
