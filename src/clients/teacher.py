@@ -9,15 +9,15 @@ client.connect(ADDRESS)
 print('Digite o número da turma para iniciar sua chamada:')
 
 msg = ''
-clientCode = 'teacher'
+client_code = 'teacher'
 
-def getIdentifiedMsg(msg, clientCode):
-    return f'{msg},{clientCode}'
+def getIdentifiedMsg(msg, client_code):
+    return f'{msg},{client_code}'
 
 while True:
     userInput = input()
     msg = str(userInput)
-    encodedPackage = str.encode(getIdentifiedMsg(msg, clientCode))
+    encodedPackage = str.encode(getIdentifiedMsg(msg, client_code))
     client.send(encodedPackage)
     response = client.recv(1024)
     decoded_response = response.decode()
