@@ -64,3 +64,5 @@ while True:
     decodedData = data.decode()
     response = new_service.get_response(decodedData)
     print(response)
+    encoded_response = response.encode()
+    connection.send(encoded_response)
