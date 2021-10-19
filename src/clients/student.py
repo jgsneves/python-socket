@@ -9,7 +9,6 @@ client.connect(ADDRESS)
 
 msg = ''
 clientCode = 'student'
-is_running = True
 
 def get_identified_msg(msg, clientCode):
     return f'{msg},{clientCode}'
