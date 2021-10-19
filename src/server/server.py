@@ -18,7 +18,7 @@ class ClassService:
         self.current_class = current_class
         self.present_students = present_students
     
-    def isStudentPresent(self, student: str):
+    def is_student_present(self, student: str):
         if self.present_students.count(student) == 0:
             return False
         else:
@@ -37,7 +37,7 @@ class ClassService:
                 return 'Comando inválido!'
 
     def handle_student_message(self, student_number: str):
-        if self.isStudentPresent(student_number):
+        if self.is_student_present(student_number):
             return f'Você já marcou presença!'
         else:
             self.present_students.append(student_number)
