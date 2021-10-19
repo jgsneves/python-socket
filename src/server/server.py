@@ -51,7 +51,7 @@ class ClassService:
         if client_code == 'teacher':
             return self.handle_teacher_message(client_message)
         else:
-            self.handle_student_message(client_message)
+            return self.handle_student_message(client_message)
 
 initial_class = ''
 initial_response = ''
