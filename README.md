@@ -22,16 +22,77 @@ A imagem abaixo ilustra bem onde os protocolos TCP/UDP agem nesse fluxo de infor
 ![Osi Models](https://www.freecodecamp.org/news/content/images/2021/10/osi-model-layers.png)
 
 ## O que é concorrência (multithread)?
+Falar de concorrência é falar de paralelismo. É a capacidade do computador processar mais de um dado ao mesmo tempo. Aqui não se fala apenas de velocidade de processamento (afinal, com o multithread, o computador conseguiria realizar mais de uma tarefa ao mesmo tempo, realizando aquilo que se propõe de forma mais célere), mas também na possibilidade de criar programas básicos.
+
+Em um programa muito básico, onde todas as instruções ocorrem de cima para baixo, em sequência, o multithread não faz falta. O computador executa todas as instruções e chega ao fim. Porém, quando precisamos criar programas um pouco mais complexos, como é o caso desse repositório, precisamos que o computador reserve atenção a mais de uma execução (aqui, nós temos um servidor e 2 clientes conectando a ele ao mesmo tempo).
+
+Para escutar dois clientes ao mesmo tempo, por exemplo, o processador deve reservar uma thread para cada requisição. Caso não houvesse o multithread, não seria possível conectar mais de um cliente no mesmo servidor, e ao mesmo tempo.
 
 ## Diferença entre ```thread``` e ```process```
+Os dois referem-se a processamento. Porém, um `process` tem uma ou mais `threads`. O processo aloca recursos computacionais (processamento, memória, etc) para realizar uma ou mais `threads`, enquanto que esta última é uma unidade básica de processamento. Quando executamos um script python, por exemplo, utilizamos uma thread de um processo.
+
+Nesse nosso repositório, criamos uma `thread` para processar o script e uma para cada conexão de cada cliente (professor e aluno). Caso não houvesse a possibilidade de fazer esse paralelismo, quando o professor se conectasse, seria necessário encerrar a conexão deste para que qualquer aluno pudesse se conectar e registrar sua presença. Não é esse o comportamento esperado.
 
 ## Vamos pro código
+Agora que abordamos os conceitos básicos, vamos parar o código! 
 
 ### Explicando a aplicação
+Cada equipe deve criar um aplicativo de CHAMADA para uma turma de alunos utilizando sockets. O aplicativo deve funcionar da seguinte maneira:
+
+> Há dois tipos de clientes: professor e aluno.
+> Um professor pode iniciar ou finalizar o processo de chamada.
+> Um aluno envia seu registro de presença em uma chamada ativa.
+> O servidor hospeda a lista de alunos que estão presentes em cada chamada e atende clientes (alunos e professores).
+
+Não há necessidade de implementar uma interface gráfica. Uma interface textual, desde que compreensível, pode ser usada sem que isso prejudique a pontuação do trabalho.
+
+A aplicação pode ser desenvolvida em C++, Java, GoLang, Dart ou Python. As equipes devem enviar ao professor um relatório com o seguinte conteúdo:
+> Apresentação dos componentes da equipe
+> Descrição dos requerimentos mínimos de software necessários para execução da aplicação (o que deve estar instalado no cliente e no servidor para a aplicação funcionar)
+> Todos os códigos-fonte da aplicação
+> Instruções de instalação da aplicação
+
+### Detalhes das regras de negócio
+Detalhes que devem estar presentes na implementação do projeto.
+
+#### Cliente tipo “Professor”
+• Dispara o início da chamada informando a identificação numérica da turma e recebe do servidor uma confirmação contendo a data e hora do início da chamada.
+
+• Dispara o encerramento da chamada informando a identificação numérica da turma e recebe do servidor a data e a hora de encerramento da chamada, além de um vetor contendo todas as matrículas de alunos que responderam a chamada. Após o recebimento, deve exibir (na console da aplicação) uma lista
+contendo as matrículas (alunos presentes) que recebeu.
+
+#### Cliente tipo “Aluno”
+• Responde à chamada enviando sua matrícula e a identificação numérica de sua turma. Recebe como resposta a identificação numérica da turma, a data e a hora em que sua presença foi registrada pelo servidor.
+
+• Se a turma a qual o aluno enviou seu registro de presença não estiver com a chamada iniciada pelo professor, o aluno recebe a mesma resposta, mas com a identificação da turma zerada (indicando assim, que o registro de presença foi recusado pelo servidor).
+
+#### Servidor de Chamada
+• Aguarda solicitações de clientes (escuta)
+
+• Recebe solicitação e identifica o tipo:
+    ◦ Se for um início de chamada se prepara para armazenar as matrículas de alunos que responderão a chamada da turma informada e retorna confirmação adequada (data e hora) ao professor. Lembre-se: pode haver mais de um professor fazendo chamada ao mesmo tempo para turmas diferentes. Cabe à equipe implementar uma solução para isso.
+
+    ◦ Se for um encerramento de chamada retorna ao professor a confirmação adequada (data, hora e vetor de matrículas) ao professor e apaga as informações referentes a chamada da turma que foi encerrada. Lembre-se que podem haver outras turmas ainda fazendo chamada e isso não pode sofrer interferência. Cabe à equipe implementar uma solução para isso.
+
+    ◦ Se for um registro de presença, verifica se existe uma chamada ativa para a turma informada pelo aluno.
+
+• Caso a chamada esteja ativa (professor já iniciou, mas não encerrou), insere a matrícula do aluno no armazenamento de alunos presentes e devolve a
+confirmação adequada ao aluno (identificação da turma, a data e a hora em que a presença foi registrada).
+
+• Caso a chamada não exista (professor não iniciou ou já encerrou a chamada da turma) apenas devolve a resposta adequada ao aluno ( zero em lugar da identificação da turma, a data e a hora em que a presença foi negada).
+
 
 ### Estrutura de pastas (arquitetura)
+```javascript
+src--|
+    clients--|
+        student.py  //o arquivo responsável por implementar o cliente-estudante
+        teacher.py  //o arquivo responsável por implementar o cliente-professor
+    server--|
+        server.py   //o arquivo responsável por implementar o servidor
+```
 
-### Componentes
+### Componentes da aplicação
 
 ## Referência
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
