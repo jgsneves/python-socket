@@ -225,6 +225,25 @@ Este módulo implementa um `socket` com as configuraçõe do servidor (tem que s
 
 Após codificar esta `string` em `bytes` (o socket apenas aceita trafegar dados em `bytes`), o envia para o servidor e fica aguardando o feeedback (a resposta) do mesmo. Após a chegada da resposta, esta é decodificada de `bytes` para `string` e printada na tela.
 
+Para executar este `client`, basta executar o seguinte comando da raiz do projeto:
+```
+python src/clients/student.py
+```
+
+#### src/clients/teacher.py
+
+TO DO
+
+#### src/models/classtype.py
+
+TO DO
+
+#### src/server/server.py
+
+TO DO
+
+#### src/services/service.py
+
 ## Referência
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
 - [Como usar processamento concorrente (multithread) com Python](https://stackoverflow.com/questions/23828264/how-to-make-a-simple-multithreaded-socket-server-in-python-that-remembers-client)
