@@ -169,6 +169,7 @@ confirmação adequada ao aluno (identificação da turma, a data e a hora em qu
 ```
 python src/index.py
 ```
+No mais, o arquivo foi implementado da seguinte forma:
 
 ```python
 from server.server import Server
@@ -181,6 +182,48 @@ new_server = Server(class_service)
 new_server.run()
 ```
 Ele importa o serviço e passa sua instância no construtor do servidor. Após o instanciamento do server, executa o método `run()` para rodar o servidor.
+
+#### src/clients/student.py
+Implementação do cliente de estudante.
+
+```python
+import socket
+
+PORT = 5050
+HOST = socket.gethostbyname(socket.gethostname())
+ADDRESS = (HOST, PORT)
+
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(ADDRESS)
+print('''
+---------------[BEM VINDO]------------------
+
+Olá Aluno,
+Bem vindo ao sistema de registro de presença.
+
+---------------------------------------------
+''')
+
+msg = ''
+client_code = 'student'
+
+def get_identified_msg(msg, client_code):
+    return f'{msg},{client_code}'
+
+while True:
+    user_number = input('Informe seu número de matrícula: ')
+    user_class = input('Informe o número da matéria em que deseja registrar presença: ')
+    msg = str(user_number + '/' + user_class)
+    encoded_package = str.encode(get_identified_msg(msg, client_code))
+    client.send(encoded_package)
+    response = client.recv(1024)
+    decoded_response = response.decode()
+    print(decoded_response)
+
+```
+Este módulo implementa um `socket` com as configuraçõe do servidor (tem que ser um match perfeito entre porta, endereço e tipo de socket). Depois solicita dois `inputs` do usuário: 1) número de matrícula e 2) número da matéria que ele deseja registrar a presença. Depois os `inputs` são parseados em uma `string` que os separa por uma barra `/`.
+
+Após codificar esta `string` em `bytes` (o socket apenas aceita trafegar dados em `bytes`), o envia para o servidor e fica aguardando o feeedback (a resposta) do mesmo. Após a chegada da resposta, esta é decodificada de `bytes` para `string` e printada na tela.
 
 ## Referência
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
