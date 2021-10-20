@@ -74,11 +74,11 @@ contendo as matrículas (alunos presentes) que recebeu.
 
 • Recebe solicitação e identifica o tipo:
 
-- Se for um início de chamada se prepara para armazenar as matrículas de alunos que responderão a chamada da turma informada e retorna confirmação adequada (data e hora) ao professor. Lembre-se: pode haver mais de um professor fazendo chamada ao mesmo tempo para turmas diferentes. Cabe à equipe implementar uma solução para isso.
+    • Se for um início de chamada se prepara para armazenar as matrículas de alunos que responderão a chamada da turma informada e retorna confirmação adequada (data e hora) ao professor. Lembre-se: pode haver mais de um professor fazendo chamada ao mesmo tempo para turmas diferentes. Cabe à equipe implementar uma solução para isso.
 
-- Se for um encerramento de chamada retorna ao professor a confirmação adequada (data, hora e vetor de matrículas) ao professor e apaga as informações referentes a chamada da turma que foi encerrada. Lembre-se que podem haver outras turmas ainda fazendo chamada e isso não pode sofrer interferência. Cabe à equipe implementar uma solução para isso.
+    • Se for um encerramento de chamada retorna ao professor a confirmação adequada (data, hora e vetor de matrículas) ao professor e apaga as informações referentes a chamada da turma que foi encerrada. Lembre-se que podem haver outras turmas ainda fazendo chamada e isso não pode sofrer interferência. Cabe à equipe implementar uma solução para isso.
 
-- Se for um registro de presença, verifica se existe uma chamada ativa para a turma informada pelo aluno.
+    • Se for um registro de presença, verifica se existe uma chamada ativa para a turma informada pelo aluno.
 
 • Caso a chamada esteja ativa (professor já iniciou, mas não encerrou), insere a matrícula do aluno no armazenamento de alunos presentes e devolve a
 confirmação adequada ao aluno (identificação da turma, a data e a hora em que a presença foi registrada).
