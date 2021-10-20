@@ -1,7 +1,6 @@
 # Python Socket
 
 ## O que é este repositório?
-<hr />
 Este repositório tem o objetivo de explicar, na prática, o que é um socket e ensinar como implementá-lo utilizando o [Python](https://www.python.org/)
 
 ## O que é um socket?
