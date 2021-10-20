@@ -1,4 +1,4 @@
-<img src="https://www.python.org/static/img/python-logo.png" />
+![Python](https://cafeinacodificada.com.br/wp-content/uploads/2018/04/Post1_pt21.png)
 # Python Socket
 
 ## O que é este repositório?
