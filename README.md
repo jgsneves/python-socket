@@ -34,7 +34,7 @@ Os dois referem-se a processamento. Porém, um `process` tem uma ou mais `thread
 Nesse nosso repositório, criamos uma `thread` para processar o script e uma para cada conexão de cada cliente (professor e aluno). Caso não houvesse a possibilidade de fazer esse paralelismo, quando o professor se conectasse, seria necessário encerrar a conexão deste para que qualquer aluno pudesse se conectar e registrar sua presença. Não é esse o comportamento esperado.
 
 ## Vamos pro código
-Agora que abordamos os conceitos básicos, vamos parar o código! 
+Agora que abordamos os conceitos básicos, vamos para o código! 
 
 ### Explicando a aplicação
 Cada equipe deve criar um aplicativo de CHAMADA para uma turma de alunos utilizando sockets. O aplicativo deve funcionar da seguinte maneira:
