@@ -5,6 +5,62 @@ Bem vindo! Espero que o conteúdo aqui apresentado lhe auxilie a entender melhor
 ## O que é este repositório?
 Este repositório é fruto de uma atividade avaliativa do curso de Análise e Desenvolvimento de Sistemas, na disciplina de Sistemas Distribuídos, ministrada pelo professor Eduardo Xavier. A intenção deste é explicar, na prática, o que é um socket e ensinar como implementá-lo utilizando a linguagem [Python](https://www.python.org/)
 
+## Integrantes da equipe/contribuintes
+- João Gabriel Santos Neves - matrícula UNIFACS: 042191010 - [Github](https://github.com/jgsneves)
+
+## Requerimentos Mínimos de Software
+O que você precisa fazer para executar este software
+
+## Instalação do Git
+Caso você deseje baixar os arquivos deste respositório via git, você precisa ter o [git](https://git-scm.com/) caso deseje clonar este repositório para um diretório local. Siga o passo a passo abaixo a depender de qual sistema operacional você utilize:
+
+### Windows
+Faça o download do instalador na página oficial do git e instale em sua máquina normalmente.
+
+### GNU/Linux
+Siga este [manual](https://git-scm.com/download/linux) do site oficial do git
+
+### MacOS
+Siga este [manual](https://git-scm.com/download/mac) do site oficial do git
+
+## Copiando este repositório para um diretório local
+Há duas formas de fazer o download deste respositório:
+
+### Download do ZIP
+Dentro da [página deste repositório no github](https://github.com/jgsneves/python-socket) tem a opção de fazer download de um arquivo zipado, com todos os módulos py dentro dele, conforme imagem:
+![Download Zip do github](https://br.atsit.in/wp-content/uploads/2021/06/como-baixar-arquivos-e-visualizar-o-codigo-do-github-9.png)
+
+### Download via git
+1) abra um terminal (powershell, cmd ou qualquer outro terminal do seu sistema operacional);
+
+2) crie uma diretório (pasta) dentro do seu disco rígido através do comando:
+```mkdir <nome_da_pasta>```
+
+3) clone este repositório para seu diretório local:
+Usando HTTPS:
+```git clone https://github.com/jgsneves/python-socket.git```
+Usando SSH:
+```git clone git@github.com:jgsneves/python-socket.git```
+
+## Instalação do Python
+Você precisa ter o [Python](https://www.python.org/) instalado em sua máquina.
+
+### Windows
+Caso você utilize o sistema operacional windows, dirija-se ao site oficial da linguagem, faça download do compilador do `python3`.
+
+### GNU/Linux
+Siga as instruções contidas neste [manual](https://python.org.br/instalacao-linux/) criado pela python brasil.
+
+### MacOS
+Siga as instruções contidas neste [manual](https://python.org.br/instalacao-mac/) criado pela python brasil.
+
+## Execução dos arquivos python
+Depois do compilador Python instalado, executaremos cada arquivo do servidor e dos clientes, usando o seguinte comando:
+
+```python <path_do_arquivo>```
+
+Abra um terminal para cada socket (um para professor, outro para aluno e outro para servidor).
+
 ## O que é um socket?
 O `socket` é um nó. É um ponto de comunicação entre dois sistemas distribuídos. Sistema é um software e sistema distribuído é uma aplicação que somente é completa com a utilização de mais de um programa localizado em máquinas diferentes (claro que podemos simular duas localizações distintas em uma mesma máquina, como é o caso dessa aplicação deste respositório). 
 
@@ -33,7 +89,7 @@ Os dois referem-se a processamento. Porém, um `process` tem uma ou mais `thread
 
 Nesse nosso repositório, criamos uma `thread` para processar o script e uma para cada conexão de cada cliente (professor e aluno). Caso não houvesse a possibilidade de fazer esse paralelismo, quando o professor se conectasse, seria necessário encerrar a conexão deste para que qualquer aluno pudesse se conectar e registrar sua presença. Não é esse o comportamento esperado.
 
-## Vamos pro código
+## Vamos pro código!
 Agora que abordamos os conceitos básicos, vamos para o código! 
 
 ### Explicando a aplicação
