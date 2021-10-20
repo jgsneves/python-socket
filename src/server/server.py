@@ -2,6 +2,30 @@ import socket
 import threading
 from datetime import datetime
 
+class ClassType:
+    def __init__(self, number: str) -> None:
+        self.number = number
+        self.is_opened = False
+        self.present_students = []
+
+    def open(self):
+        self.is_opened = True
+
+    def close(self):
+        self.is_opened = False
+
+    def add_student(self, student_number):
+        self.active_students.append(student_number)
+
+    def remove_student(self, student_number):
+        self.active_students.remove(student_number)
+
+    def is_student_present(self, student_number):
+        for student in self.present_students:
+            if student == student_number:
+                return True
+        return False
+
 class Server:
     def __init__(self, class_service) -> None:
         self.PORT = 5050
@@ -32,27 +56,37 @@ class Server:
 
 class ClassService:
     def __init__(self) -> None:
-        self.current_class = ''
-        self.present_students = []
-    
-    def is_student_present(self, student: str):
-        if self.present_students.count(student) == 0:
-            return False
-        else:
-            return True
+        self.active_classes = []
+
+    def add_class(self, class_obj):
+        self.active_classes.append(class_obj)
+
+    def remove_class(self, class_number):
+        for item in self.active_classes:
+            if item.number == class_number:
+                self.active_classes.remove(item)
+
+    def is_class_active(self, class_number):
+        for item in self.active_classes:
+            if item.number == class_number:
+                return True
+        return False
+
+    def get_class_present_students(self, class_number):
+        for item in self.active_classes:
+            if item.number == class_number:
+                return item.present_students
 
     def handle_teacher_message(self, message: str):
         currentDateAndTime = datetime.now().strftime("%d/%m/%Y às %H:%M")
-        if self.current_class == '':
-            self.current_class = message
-            return f'A chamada da turma {self.current_class} foi ativada em {currentDateAndTime}!'
+        if self.is_class_active(message):
+            present_students = self.get_class_present_students(message)
+            self.remove_class(message)
+            return f'A chamada da turma {message} foi encerrada em {currentDateAndTime}! Os seguintes alunos registraram presença: {present_students}'
         else:
-            if message == self.current_class:
-                class_name = self.current_class
-                self.current_class = ''
-                return f'A chamada da turma {class_name} foi encerrada em {currentDateAndTime}! Os seguintes alunos registraram presença: {self.present_students}'
-            else:
-                return 'Comando inválido!'
+            new_class = ClassType(message)
+            self.add_class(new_class)
+            return f'A chamada da turma {message} foi ativada em {currentDateAndTime}!'
 
     def handle_student_message(self, student_number: str):
         if self.is_student_present(student_number):
