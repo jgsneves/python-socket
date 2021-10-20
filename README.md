@@ -230,19 +230,17 @@ Para executar este `client`, basta executar o seguinte comando da raiz do projet
 python src/clients/student.py
 ```
 
-#### :gear: src/clients/teacher.py
-
+#### *:gear: src/clients/teacher.py*
 TO DO
 
-#### :gear: src/models/classtype.py
-
+#### *:gear: src/models/classtype.py*
 TO DO
 
-#### :gear: src/server/server.py
-
+#### *:gear: src/server/server.py*
 TO DO
 
-#### :gear: src/services/service.py
+#### *:gear: src/services/service.py*
+TO DO
 
 ## Referências
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
