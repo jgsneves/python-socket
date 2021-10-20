@@ -6,6 +6,20 @@ ADDRESS = (HOST, PORT)
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDRESS)
+
+print('''
+---------------[BEM VINDO]------------------
+
+Olá Professor,
+Bem vindo ao sistema de registro de presença!
+
+Neste sistema é possível:
+- Abrir chamada de uma matéria;
+- Encerrar a chamada da mesma;
+- Consultar a lista de alunos presentes;
+
+---------------------------------------------
+''')
 print('Digite o número da turma para iniciar sua chamada:')
 
 msg = ''

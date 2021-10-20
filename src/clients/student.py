@@ -6,7 +6,14 @@ ADDRESS = (HOST, PORT)
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDRESS)
-print('Digite o seu número de matrícula para registrar presença:')
+print('''
+---------------[BEM VINDO]------------------
+
+Olá Aluno,
+Bem vindo ao sistema de registro de presença.
+
+---------------------------------------------
+''')
 
 msg = ''
 client_code = 'student'
@@ -15,8 +22,9 @@ def get_identified_msg(msg, client_code):
     return f'{msg},{client_code}'
 
 while True:
-    user_input = input()
-    msg = str(user_input)
+    user_number = input('Informe seu número de matrícula: ')
+    user_class = input('Informe o número da matéria em que deseja registrar presença: ')
+    msg = str(user_number + '/' + user_class)
     encoded_package = str.encode(get_identified_msg(msg, client_code))
     client.send(encoded_package)
     response = client.recv(1024)

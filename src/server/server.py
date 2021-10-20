@@ -15,10 +15,10 @@ class ClassType:
         self.is_opened = False
 
     def add_student(self, student_number):
-        self.active_students.append(student_number)
+        self.present_students.append(student_number)
 
     def remove_student(self, student_number):
-        self.active_students.remove(student_number)
+        self.present_students.remove(student_number)
 
     def is_student_present(self, student_number):
         for student in self.present_students:
@@ -79,6 +79,7 @@ class ClassService:
 
     def handle_teacher_message(self, message: str):
         currentDateAndTime = datetime.now().strftime("%d/%m/%Y às %H:%M")
+
         if self.is_class_active(message):
             present_students = self.get_class_present_students(message)
             self.remove_class(message)
@@ -88,17 +89,26 @@ class ClassService:
             self.add_class(new_class)
             return f'A chamada da turma {message} foi ativada em {currentDateAndTime}!'
 
-    def handle_student_message(self, student_number: str):
-        if self.is_student_present(student_number):
-            return f'Você já marcou presença!'
+    def handle_student_message(self, message: str):
+        currentDateAndTime = datetime.now().strftime("%d/%m/%Y às %H:%M")
+        student_infos = message.split('/')
+        student_number = student_infos[0]
+        class_number = student_infos[1]
+
+        if self.is_class_active(class_number):
+            for item in self.active_classes:
+                if item.number == class_number:
+                    item.add_student(student_number)
+                break
+            return f'Presença registrada com sucesso na turma {class_number} em {currentDateAndTime}!'
         else:
-            self.present_students.append(student_number)
-            return f'Aluno {student_number} registrou presença!'
+            return f'Esta turma não está com presença ativa. Solicitação rejeitada em {currentDateAndTime}'
 
     def handle_message(self, decoded_data: str):
         message_list = decoded_data.split(',')
         client_message: str = message_list[0]
         client_code: str = message_list[1]
+
         if client_code == 'teacher':
             return self.handle_teacher_message(client_message)
         else:
