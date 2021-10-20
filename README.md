@@ -164,7 +164,7 @@ confirmação adequada ao aluno (identificação da turma, a data e a hora em qu
 
 ### Componentes da aplicação
 
-#### index.py
+#### **:gear: index.py**
 É o script que deve ser executado para rodar o `server`. Rodar o comando na pasta root do projeto:
 ```
 python src/index.py
@@ -183,7 +183,7 @@ new_server.run()
 ```
 Ele importa o serviço e passa sua instância no construtor do servidor. Após o instanciamento do server, executa o método `run()` para rodar o servidor.
 
-#### src/clients/student.py
+#### **:gear: src/clients/student.py**
 Implementação do cliente de estudante.
 
 ```python
@@ -230,16 +230,16 @@ Para executar este `client`, basta executar o seguinte comando da raiz do projet
 python src/clients/student.py
 ```
 
-#### *:gear: src/clients/teacher.py*
+#### **:gear: src/clients/teacher.py**
 TO DO
 
-#### *:gear: src/models/classtype.py*
+#### **:gear: src/models/classtype.py**
 TO DO
 
-#### *:gear: src/server/server.py*
+#### **:gear: src/server/server.py**
 TO DO
 
-#### *:gear: src/services/service.py*
+#### **:gear: src/services/service.py**
 TO DO
 
 ## Referências
