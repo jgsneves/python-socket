@@ -1,22 +1,38 @@
 import socket
+import threading
 
-PORT = 5050
-HOST = socket.gethostbyname(socket.gethostname())
-ADDRESS = (HOST, PORT)
+class Server:
+    def __init__(self, class_service) -> None:
+        self.PORT = 5050
+        self.HOST = socket.gethostbyname(socket.gethostname())
+        self.ADDRESS = (self.HOST, self.PORT)
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.service = class_service
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(ADDRESS)
+    def run(self):
+        self.server.bind(self.ADDRESS)
+        self.server.listen()
+        print('Servidor está escutando...')
+        while True:
+            connection, client = self.server.accept()
+            print('Cliente conectado: ', client)
+            thread = threading.Thread(target=self.handle_connection, args=(connection, client))
+            thread.start()
 
-server.listen()
-print('Servidor está escutando...')
+    def handle_connection(self, connection: socket, _):
+        while True:
+            data: bytes = connection.recv(1024)
+            decoded_data = data.decode()
+            response: str = self.service.handle_message(decoded_data)
+            print(response)
+            encoded_response = response.encode()
+            connection.send(encoded_response)
 
-connection, client = server.accept()
-print('Cliente conectado: ', client)
 
 class ClassService:
-    def __init__(self, current_class, present_students) -> None:
-        self.current_class = current_class
-        self.present_students = present_students
+    def __init__(self) -> None:
+        self.current_class = ''
+        self.present_students = []
     
     def is_student_present(self, student: str):
         if self.present_students.count(student) == 0:
@@ -43,7 +59,7 @@ class ClassService:
             self.present_students.append(student_number)
             return f'Aluno {student_number} registrou presença!'
 
-    def get_response(self, decoded_data: str):
+    def handle_message(self, decoded_data: str):
         message_list = decoded_data.split(',')
         client_message: str = message_list[0]
         client_code: str = message_list[1]
@@ -52,15 +68,8 @@ class ClassService:
         else:
             return self.handle_student_message(client_message)
 
-initial_class = ''
-initial_present_students = []
+class_service = ClassService()
 
-new_service = ClassService(initial_class, initial_present_students)
+new_server = Server(class_service)
 
-while True:
-    data = connection.recv(1024)
-    decoded_data = data.decode()
-    response = new_service.get_response(decoded_data)
-    print(response)
-    encoded_response = response.encode()
-    connection.send(encoded_response)
+new_server.run()
