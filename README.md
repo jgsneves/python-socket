@@ -48,6 +48,7 @@ Cada equipe deve criar um aplicativo de CHAMADA para uma turma de alunos utiliza
 Não há necessidade de implementar uma interface gráfica. Uma interface textual, desde que compreensível, pode ser usada sem que isso prejudique a pontuação do trabalho.
 
 A aplicação pode ser desenvolvida em C++, Java, GoLang, Dart ou Python. As equipes devem enviar ao professor um relatório com o seguinte conteúdo:
+
     • Apresentação dos componentes da equipe
     • Descrição dos requerimentos mínimos de software necessários para execução da aplicação 
     (o que deve estar instalado no cliente e no servidor para a aplicação funcionar)
@@ -72,11 +73,12 @@ contendo as matrículas (alunos presentes) que recebeu.
 • Aguarda solicitações de clientes (escuta)
 
 • Recebe solicitação e identifica o tipo:
-    - Se for um início de chamada se prepara para armazenar as matrículas de alunos que responderão a chamada da turma informada e retorna confirmação adequada (data e hora) ao professor. Lembre-se: pode haver mais de um professor fazendo chamada ao mesmo tempo para turmas diferentes. Cabe à equipe implementar uma solução para isso.
 
-    - Se for um encerramento de chamada retorna ao professor a confirmação adequada (data, hora e vetor de matrículas) ao professor e apaga as informações referentes a chamada da turma que foi encerrada. Lembre-se que podem haver outras turmas ainda fazendo chamada e isso não pode sofrer interferência. Cabe à equipe implementar uma solução para isso.
+- Se for um início de chamada se prepara para armazenar as matrículas de alunos que responderão a chamada da turma informada e retorna confirmação adequada (data e hora) ao professor. Lembre-se: pode haver mais de um professor fazendo chamada ao mesmo tempo para turmas diferentes. Cabe à equipe implementar uma solução para isso.
 
-    - Se for um registro de presença, verifica se existe uma chamada ativa para a turma informada pelo aluno.
+- Se for um encerramento de chamada retorna ao professor a confirmação adequada (data, hora e vetor de matrículas) ao professor e apaga as informações referentes a chamada da turma que foi encerrada. Lembre-se que podem haver outras turmas ainda fazendo chamada e isso não pode sofrer interferência. Cabe à equipe implementar uma solução para isso.
+
+- Se for um registro de presença, verifica se existe uma chamada ativa para a turma informada pelo aluno.
 
 • Caso a chamada esteja ativa (professor já iniciou, mas não encerrou), insere a matrícula do aluno no armazenamento de alunos presentes e devolve a
 confirmação adequada ao aluno (identificação da turma, a data e a hora em que a presença foi registrada).
