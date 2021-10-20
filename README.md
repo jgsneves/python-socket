@@ -92,6 +92,21 @@ Nesse nosso repositório, criamos uma `thread` para processar o script e uma par
 ## Vamos pro código!
 Agora que abordamos os conceitos básicos, vamos para o código! 
 
+### Estrutura de pastas (arquitetura)
+```javascript
+src--|
+    clients---|
+        student.py      //implementação do cliente-estudante
+        teacher.py      //implementação do cliente-professor
+    models----|
+        classtype.py    //modelo de uma turma/classe
+    server----|
+        server.py       //implementação do servidor
+    services--|
+        service.py      //implementação do serviço de controle de chamada
+    index.py            //o script que deve ser executado para abrir o servidor
+```
+
 ### Explicando a aplicação
 Cada equipe deve criar um aplicativo de CHAMADA para uma turma de alunos utilizando sockets. O aplicativo deve funcionar da seguinte maneira:
 
@@ -147,18 +162,25 @@ confirmação adequada ao aluno (identificação da turma, a data e a hora em qu
 
 • Caso a chamada não exista (professor não iniciou ou já encerrou a chamada da turma) apenas devolve a resposta adequada ao aluno ( zero em lugar da identificação da turma, a data e a hora em que a presença foi negada).
 
+### Componentes da aplicação
 
-### Estrutura de pastas (arquitetura)
-```javascript
-src--|
-    clients--|
-        student.py  //o arquivo responsável por implementar o cliente-estudante
-        teacher.py  //o arquivo responsável por implementar o cliente-professor
-    server--|
-        server.py   //o arquivo responsável por implementar o servidor
+#### index.py
+É o script que deve ser executado para rodar o `server`. Rodar o comando na pasta root do projeto:
+```
+python src/index.py
 ```
 
-### Componentes da aplicação
+```python
+from server.server import Server
+from services.service import Service
+
+class_service = Service()
+
+new_server = Server(class_service)
+
+new_server.run()
+```
+Ele importa o serviço e passa sua instância no construtor do servidor. Após o instanciamento do server, executa o método `run()` para rodar o servidor.
 
 ## Referência
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
