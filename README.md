@@ -2,16 +2,16 @@
 # Python Socket
 Bem vindo! Espero que o conteúdo aqui apresentado lhe auxilie a entender melhor o funcionamento de um Socket e como implementá-lo em Python.
 
-## O que é este repositório?
+## **:question: O que é este repositório?**
 Este repositório é fruto de uma atividade avaliativa do curso de Análise e Desenvolvimento de Sistemas, na disciplina de Sistemas Distribuídos, ministrada pelo professor Eduardo Xavier. A intenção deste é explicar, na prática, o que é um socket e ensinar como implementá-lo utilizando a linguagem [Python](https://www.python.org/)
 
-## Integrantes da equipe/contribuintes
+## **:raising_hand_man: Integrantes da equipe/contribuintes**
 - João Gabriel Santos Neves - matrícula UNIFACS: 042191010 - [Github](https://github.com/jgsneves)
 
-## Requerimentos Mínimos de Software
+## **:clipboard: Requerimentos Mínimos de Software**
 O que você precisa fazer para executar este software
 
-## Instalação do Git
+## **:pushpin: Instalação do Git**
 Caso você deseje baixar os arquivos deste respositório via git, você precisa ter o [git](https://git-scm.com/) caso deseje clonar este repositório para um diretório local. Siga o passo a passo abaixo a depender de qual sistema operacional você utilize:
 
 ### Windows
@@ -23,7 +23,7 @@ Siga este [manual](https://git-scm.com/download/linux) do site oficial do git
 ### MacOS
 Siga este [manual](https://git-scm.com/download/mac) do site oficial do git
 
-## Copiando este repositório para um diretório local
+## **:pushpin: Copiando este repositório para um diretório local**
 Há duas formas de fazer o download deste respositório:
 
 ### Download do ZIP
@@ -42,7 +42,7 @@ Usando HTTPS:
 Usando SSH:
 ```git clone git@github.com:jgsneves/python-socket.git```
 
-## Instalação do Python
+## **:pushpin: Instalação do Python**
 Você precisa ter o [Python](https://www.python.org/) instalado em sua máquina.
 
 ### Windows
@@ -54,45 +54,45 @@ Siga as instruções contidas neste [manual](https://python.org.br/instalacao-li
 ### MacOS
 Siga as instruções contidas neste [manual](https://python.org.br/instalacao-mac/) criado pela python brasil.
 
-## Execução dos arquivos python
+## **:paintbrush: Execução dos arquivos python**
 Depois do compilador Python instalado, executaremos cada arquivo do servidor e dos clientes, usando o seguinte comando:
 
 ```python <path_do_arquivo>```
 
 Abra um terminal para cada socket (um para professor, outro para aluno e outro para servidor).
 
-## O que é um socket?
+## **:mailbox_with_mail: O que é um socket?**
 O `socket` é um nó. É um ponto de comunicação entre dois sistemas distribuídos. Sistema é um software e sistema distribuído é uma aplicação que somente é completa com a utilização de mais de um programa localizado em máquinas diferentes (claro que podemos simular duas localizações distintas em uma mesma máquina, como é o caso dessa aplicação deste respositório). 
 
 É legal pensar o ```socket``` como um container, dentro de um navio. Este navio sai de um ponto A para o ponto B e o container contém uma mensagem que precisamos trafegar entre os pontos A e B. Geralmente utilizamos o ```socket``` em conjunto com o protocolo IP, que é responsável por endereçar toda máquina dentro de uma rede. O IP é o endereço numérico de toda máquina conectada a uma rede. Assim, cada ```socket``` possui, como metadado, o endereço de ip, a porta de comunicação e protocolo de comunicação utilizado dos pontos A e B.
 
 > OBS: metadado é um dado que não faz parte do conteúdo de uma informação, apenas representando uma informação complementar. Por exemplo: em uma carta, o seu conteúdo é um dado e as informações de endereço do remetente e do destinatário são metadados. 
 
-## Onde utilizamos o socket?
+## **:interrobang: Onde utilizamos o socket?**
 Bom, utilizamos o socket em praticamente toda a internet. Praticamente toda a internet é baseada no modelo [cliente/servidor](https://www.tecmundo.com.br/internet/982-o-que-e-cliente-servidor-.htm). Então, quando você entra em qualquer site de internet, por baixo dos panos, você está utilizando o web socket.
 
-## O que é TCP/IP e UDP?
+## **:ship: O que é TCP/IP e UDP?**
 Basicamente, entendemos que o `socket` é um conteiner dentro de um navio. O mapa que diz a rota que o navio deve percorrer para chegar do ponto A ao B é o protocolo IP. O navio onde esse container está trafegando é um `pacote do tipo TCP ou UDP`. Basicamente, o navio é do tipo TCP ou UDP. Os protocolos TCP e UDP são basicamente formas de trafegar pacotes, a maneira como carregamos a informação (com um pacote) através da rede. O protocolo TCP é um protocolo baseado na `confiança`, que exige a confirmação de chegada da informação, enquanto que o UDP é baseado na performance e velocidade, não se importando com perdas de informação no tráfego.
 
 A imagem abaixo ilustra bem onde os protocolos TCP/UDP agem nesse fluxo de informação:
 ![Osi Models](https://www.freecodecamp.org/news/content/images/2021/10/osi-model-layers.png)
 
-## O que é concorrência (multithread)?
+## **:thread: O que é concorrência (multithread)?**
 Falar de concorrência é falar de paralelismo. É a capacidade do computador processar mais de um dado ao mesmo tempo. Aqui não se fala apenas de velocidade de processamento (afinal, com o multithread, o computador conseguiria realizar mais de uma tarefa ao mesmo tempo, realizando aquilo que se propõe de forma mais célere), mas também na possibilidade de criar programas básicos.
 
 Em um programa muito básico, onde todas as instruções ocorrem de cima para baixo, em sequência, o multithread não faz falta. O computador executa todas as instruções e chega ao fim. Porém, quando precisamos criar programas um pouco mais complexos, como é o caso desse repositório, precisamos que o computador reserve atenção a mais de uma execução (aqui, nós temos um servidor e 2 clientes conectando a ele ao mesmo tempo).
 
 Para escutar dois clientes ao mesmo tempo, por exemplo, o processador deve reservar uma thread para cada requisição. Caso não houvesse o multithread, não seria possível conectar mais de um cliente no mesmo servidor, e ao mesmo tempo.
 
-## Diferença entre ```thread``` e ```process```
+## **:thread: Diferença entre ```thread``` e ```process```**
 Os dois referem-se a processamento. Porém, um `process` tem uma ou mais `threads`. O processo aloca recursos computacionais (processamento, memória, etc) para realizar uma ou mais `threads`, enquanto que esta última é uma unidade básica de processamento. Quando executamos um script python, por exemplo, utilizamos uma thread de um processo.
 
 Nesse nosso repositório, criamos uma `thread` para processar o script e uma para cada conexão de cada cliente (professor e aluno). Caso não houvesse a possibilidade de fazer esse paralelismo, quando o professor se conectasse, seria necessário encerrar a conexão deste para que qualquer aluno pudesse se conectar e registrar sua presença. Não é esse o comportamento esperado.
 
-## Vamos pro código!
+## **:running_man: Vamos pro código!**
 Agora que abordamos os conceitos básicos, vamos para o código! 
 
-### Estrutura de pastas (arquitetura)
+### **:open_file_folder: Estrutura de pastas (arquitetura)**
 ```javascript
 src--|
     clients---|
@@ -107,7 +107,7 @@ src--|
     index.py            //o script que deve ser executado para abrir o servidor
 ```
 
-### Explicando a aplicação
+### **:man_teacher: Explicando a aplicação**
 Cada equipe deve criar um aplicativo de CHAMADA para uma turma de alunos utilizando sockets. O aplicativo deve funcionar da seguinte maneira:
 
     • Há dois tipos de clientes: professor e aluno.
@@ -126,21 +126,21 @@ A aplicação pode ser desenvolvida em C++, Java, GoLang, Dart ou Python. As equ
     • Todos os códigos-fonte da aplicação
     • Instruções de instalação da aplicação
 
-### Detalhes das regras de negócio
+### **:triangular_ruler: Detalhes das regras de negócio**
 Detalhes que devem estar presentes na implementação do projeto.
 
-#### Cliente tipo “Professor”
+#### **:telephone: Cliente tipo “Professor”**
 • Dispara o início da chamada informando a identificação numérica da turma e recebe do servidor uma confirmação contendo a data e hora do início da chamada.
 
 • Dispara o encerramento da chamada informando a identificação numérica da turma e recebe do servidor a data e a hora de encerramento da chamada, além de um vetor contendo todas as matrículas de alunos que responderam a chamada. Após o recebimento, deve exibir (na console da aplicação) uma lista
 contendo as matrículas (alunos presentes) que recebeu.
 
-#### Cliente tipo “Aluno”
+#### **:telephone: Cliente tipo “Aluno”**
 • Responde à chamada enviando sua matrícula e a identificação numérica de sua turma. Recebe como resposta a identificação numérica da turma, a data e a hora em que sua presença foi registrada pelo servidor.
 
 • Se a turma a qual o aluno enviou seu registro de presença não estiver com a chamada iniciada pelo professor, o aluno recebe a mesma resposta, mas com a identificação da turma zerada (indicando assim, que o registro de presença foi recusado pelo servidor).
 
-#### Servidor de Chamada
+#### **:computer: Servidor de Chamada**
 • Aguarda solicitações de clientes (escuta)
 
 • Recebe solicitação e identifica o tipo:
@@ -162,7 +162,7 @@ confirmação adequada ao aluno (identificação da turma, a data e a hora em qu
 
 • Caso a chamada não exista (professor não iniciou ou já encerrou a chamada da turma) apenas devolve a resposta adequada ao aluno ( zero em lugar da identificação da turma, a data e a hora em que a presença foi negada).
 
-### Componentes da aplicação
+### **:package: Componentes da aplicação**
 
 #### **:gear: index.py**
 É o script que deve ser executado para rodar o `server`. Rodar o comando na pasta root do projeto:
@@ -242,7 +242,7 @@ TO DO
 #### **:gear: src/services/service.py**
 TO DO
 
-## Referências
+## **:round_pushpin: Referências**
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
 - [Como usar processamento concorrente (multithread) com Python](https://stackoverflow.com/questions/23828264/how-to-make-a-simple-multithreaded-socket-server-in-python-that-remembers-client)
 - [Básico de Socket - wiki](https://wiki.python.org.br/SocketBasico)
