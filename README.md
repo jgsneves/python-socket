@@ -230,21 +230,21 @@ Para executar este `client`, basta executar o seguinte comando da raiz do projet
 python src/clients/student.py
 ```
 
-#### src/clients/teacher.py
+#### :gear: src/clients/teacher.py
 
 TO DO
 
-#### src/models/classtype.py
+#### :gear: src/models/classtype.py
 
 TO DO
 
-#### src/server/server.py
+#### :gear: src/server/server.py
 
 TO DO
 
-#### src/services/service.py
+#### :gear: src/services/service.py
 
-## Referência
+## Referências
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
 - [Como usar processamento concorrente (multithread) com Python](https://stackoverflow.com/questions/23828264/how-to-make-a-simple-multithreaded-socket-server-in-python-that-remembers-client)
 - [Básico de Socket - wiki](https://wiki.python.org.br/SocketBasico)
