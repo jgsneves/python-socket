@@ -1,8 +1,9 @@
 ![Python](https://cafeinacodificada.com.br/wp-content/uploads/2018/04/Post1_pt21.png)
 # Python Socket
+Bem vindo! Espero que o conteúdo aqui apresentado lhe auxilie a entender melhor o funcionamento de um Socket e como implementá-lo em Python.
 
 ## O que é este repositório?
-Este repositório tem o objetivo de explicar, na prática, o que é um socket e ensinar como implementá-lo utilizando o [Python](https://www.python.org/)
+Este repositório é fruto de uma atividade avaliativa do curso de Análise e Desenvolvimento de Sistemas, na disciplina de Sistemas Distribuídos, ministrada pelo professor Eduardo Xavier. A intenção deste é explicar, na prática, o que é um socket e ensinar como implementá-lo utilizando a linguagem [Python](https://www.python.org/)
 
 ## O que é um socket?
 O `socket` é um nó. É um ponto de comunicação entre dois sistemas distribuídos. Sistema é um software e sistema distribuído é uma aplicação que somente é completa com a utilização de mais de um programa localizado em máquinas diferentes (claro que podemos simular duas localizações distintas em uma mesma máquina, como é o caso dessa aplicação deste respositório). 
