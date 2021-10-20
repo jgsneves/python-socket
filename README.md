@@ -13,8 +13,13 @@ O `socket` é um nó. É um ponto de comunicação entre dois sistemas distribu�
 > OBS: metadado é um dado que não faz parte do conteúdo de uma informação, apenas representando uma informação complementar. Por exemplo: em uma carta, o seu conteúdo é um dado e as informações de endereço do remetente e do destinatário são metadados. 
 
 ## Onde utilizamos o socket?
+Bom, utilizamos o socket em praticamente toda a internet. Praticamente toda a internet é baseada no modelo [cliente/servidor](https://www.tecmundo.com.br/internet/982-o-que-e-cliente-servidor-.htm). Então, quando você entra em qualquer site de internet, por baixo dos panos, você está utilizando o web socket.
 
 ## O que é TCP/IP e UDP?
+Basicamente, entendemos que o `socket` é um conteiner dentro de um navio. O mapa que diz a rota que o navio deve percorrer para chegar do ponto A ao B é o protocolo IP. O navio onde esse container está trafegando é um `pacote do tipo TCP ou UDP`. Basicamente, o navio é do tipo TCP ou UDP. Os protocolos TCP e UDP são basicamente formas de trafegar pacotes, a maneira como carregamos a informação (com um pacote) através da rede. O protocolo TCP é um protocolo baseado na `confiança`, que exige a confirmação de chegada da informação, enquanto que o UDP é baseado na performance e velocidade, não se importando com perdas de informação no tráfego.
+
+A imagem abaixo ilustra bem onde os protocolos TCP/UDP agem nesse fluxo de informação:
+![Osi Models](https://www.freecodecamp.org/news/content/images/2021/10/osi-model-layers.png)
 
 ## O que é concorrência (multithread)?
 
@@ -35,3 +40,4 @@ O `socket` é um nó. É um ponto de comunicação entre dois sistemas distribu�
 - [Criar um socket básico em python](https://www.youtube.com/watch?v=vbUuJ2_6wqs) - [@bosontreina](https://twitter.com/bosontreina)
 - [HOWTO: socket em python](https://docs.python.org/pt-br/3/howto/sockets.html)
 - [Python Socket Programming Tutorial](https://www.youtube.com/watch?v=3QiPPX-KeSc) - [@TechWithTimm](https://twitter.com/TechWithTimm)
+- [Whats the OSI model?](https://www.freecodecamp.org/news/osi-model-computer-networking-for-beginners/)
