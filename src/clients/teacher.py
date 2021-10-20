@@ -20,18 +20,18 @@ Neste sistema é possível:
 
 ---------------------------------------------
 ''')
-print('Digite o número da turma para iniciar sua chamada:')
+print('Digite o número da turma para iniciar/finalizar sua chamada:')
 
 msg = ''
 client_code = 'teacher'
 
-def getIdentifiedMsg(msg, client_code):
+def use_client_code(msg, client_code):
     return f'{msg},{client_code}'
 
 while True:
     userInput = input()
     msg = str(userInput)
-    encodedPackage = str.encode(getIdentifiedMsg(msg, client_code))
+    encodedPackage = str.encode(use_client_code(msg, client_code))
     client.send(encodedPackage)
     response = client.recv(1024)
     decoded_response = response.decode()

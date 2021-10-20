@@ -28,6 +28,7 @@ Há duas formas de fazer o download deste respositório:
 
 ### Download do ZIP
 Dentro da [página deste repositório no github](https://github.com/jgsneves/python-socket) tem a opção de fazer download de um arquivo zipado, com todos os módulos py dentro dele, conforme imagem:
+
 ![Download Zip do github](https://br.atsit.in/wp-content/uploads/2021/06/como-baixar-arquivos-e-visualizar-o-codigo-do-github-9.png)
 
 ### Download via git
@@ -72,7 +73,7 @@ O `socket` é um nó. É um ponto de comunicação entre dois sistemas distribu�
 Bom, utilizamos o socket em praticamente toda a internet. Praticamente toda a internet é baseada no modelo [cliente/servidor](https://www.tecmundo.com.br/internet/982-o-que-e-cliente-servidor-.htm). Então, quando você entra em qualquer site de internet, por baixo dos panos, você está utilizando o web socket.
 
 ## **:ship: O que é TCP/IP e UDP?**
-Basicamente, entendemos que o `socket` é um conteiner dentro de um navio. O mapa que diz a rota que o navio deve percorrer para chegar do ponto A ao B é o protocolo IP. O navio onde esse container está trafegando é um `pacote do tipo TCP ou UDP`. Basicamente, o navio é do tipo TCP ou UDP. Os protocolos TCP e UDP são basicamente formas de trafegar pacotes, a maneira como carregamos a informação (com um pacote) através da rede. O protocolo TCP é um protocolo baseado na `confiança`, que exige a confirmação de chegada da informação, enquanto que o UDP é baseado na performance e velocidade, não se importando com perdas de informação no tráfego.
+Basicamente, entendemos que o `socket` é um conteiner dentro de um navio. O mapa que diz a rota que o navio deve percorrer para chegar do ponto A ao B é o protocolo IP. O navio onde esse container está trafegando é um `pacote do tipo TCP ou UDP`. Basicamente, o navio é do tipo TCP ou UDP. Os protocolos TCP e UDP são basicamente formas de trafegar pacotes, a maneira como carregamos a informação (com um pacote) através da rede. O protocolo TCP é um protocolo baseado na `confiança`, que exige a confirmação de chegada da informação, enquanto que o UDP é baseado na performance e `velocidade`, não se importando com perdas de informação no tráfego.
 
 A imagem abaixo ilustra bem onde os protocolos TCP/UDP agem nesse fluxo de informação:
 ![Osi Models](https://www.freecodecamp.org/news/content/images/2021/10/osi-model-layers.png)
@@ -184,7 +185,7 @@ new_server.run()
 Ele importa o serviço e passa sua instância no construtor do servidor. Após o instanciamento do server, executa o método `run()` para rodar o servidor.
 
 #### **:gear: src/clients/student.py**
-Implementação do cliente de estudante.
+Implementação do cliente de estudante. Este cliente tenta registrar presença na lista de uma turma/classe.
 
 ```python
 import socket
@@ -207,14 +208,14 @@ Bem vindo ao sistema de registro de presença.
 msg = ''
 client_code = 'student'
 
-def get_identified_msg(msg, client_code):
+def use_client_code(msg, client_code):
     return f'{msg},{client_code}'
 
 while True:
     user_number = input('Informe seu número de matrícula: ')
     user_class = input('Informe o número da matéria em que deseja registrar presença: ')
     msg = str(user_number + '/' + user_class)
-    encoded_package = str.encode(get_identified_msg(msg, client_code))
+    encoded_package = str.encode(use_client_code(msg, client_code))
     client.send(encoded_package)
     response = client.recv(1024)
     decoded_response = response.decode()
@@ -231,10 +232,108 @@ python src/clients/student.py
 ```
 
 #### **:gear: src/clients/teacher.py**
-TO DO
+O módulo responsável por implementar o script do professor. Este usuário ativa e desativa lista de presença de aulas/turmas/classes.
+
+```python
+import socket
+
+PORT = 5050
+HOST = socket.gethostbyname(socket.gethostname())
+ADDRESS = (HOST, PORT)
+
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(ADDRESS)
+
+print('''
+---------------[BEM VINDO]------------------
+
+Olá Professor,
+Bem vindo ao sistema de registro de presença!
+
+Neste sistema é possível:
+- Abrir chamada de uma matéria;
+- Encerrar a chamada da mesma;
+- Consultar a lista de alunos presentes;
+
+---------------------------------------------
+''')
+print('Digite o número da turma para iniciar/encerrar sua chamada:')
+
+msg = ''
+client_code = 'teacher'
+
+def use_client_code(msg, client_code):
+    return f'{msg},{client_code}'
+
+while True:
+    userInput = input()
+    msg = str(userInput)
+    encodedPackage = str.encode(use_client_code(msg, client_code))
+    client.send(encodedPackage)
+    response = client.recv(1024)
+    decoded_response = response.decode()
+    print(decoded_response)
+
+```
+Mais uma vez, inicialmente setamos as informações do servidor e criamos um `socket` do tipo `TCP/IP` para realizar a conexão. Basicamente o scrip solicita que o usuário informe o número da turma e, caso a chamada já esteja iniciada, ela será encerrada. O loop de repetição faz a mesma coisa que no cliente `student`: solicita um input, codifica em `bytes` e envia para o servidor.
+
+Após, aguardará o retorno da resposta pelo `server` e printará no terminal depois de decodificá-la, já que todo o dado que transita pelo `socket` está na forma de `byte`.
+
+Para executar este script, execute este comando na raiz do projeto:
+```
+python src/clients/teacher.py
+```
 
 #### **:gear: src/models/classtype.py**
-TO DO
+A primeira e única model do repositório. Ela representa uma aula (classe ou matéria, como queira se referir) e tem seus métodos.
+
+```python
+class ClassType:
+    def __init__(self, number: str) -> None:
+        self.number = number
+        self.is_opened = False
+        self.present_students = []
+
+    def open(self):
+        self.is_opened = True
+
+    def close(self):
+        self.is_opened = False
+
+    def add_student(self, student_number):
+        self.present_students.append(student_number)
+
+    def remove_student(self, student_number):
+        self.present_students.remove(student_number)
+
+    def is_student_present(self, student_number):
+        for student in self.present_students:
+            if student == student_number:
+                return True
+        return False
+
+```
+*1) atributos*
+
+| atributo         | tipagem | descrição                                                               |
+|------------------|---------|-------------------------------------------------------------------------|
+| number           | string  | o número que representa a turma. Número de identificação                |
+| is_opened        | boolean | indicação se a chamada está ativa ou não. Se a turma está aberta ou não |
+| present_students | array   | lista contendo todos os números de identificação dos estudantes         |
+
+*2) métodos*
+| método             | parâmetros                                                 | descrição                                                          |
+|--------------------|------------------------------------------------------------|--------------------------------------------------------------------|
+| open               | None                                                       | modifica o atributo is_openeded para True                          |
+| close              | None                                                       | modifica o atributo is_openened para False                         |
+| add_student        | student_number: número que representa o estudante (string) | adiciona novo estudante na lista                                   |
+| remove_student     | student_number: número que representa o estudante (string) | remove um estudante da lista por número de identificação           |
+| is_student_present | student_number: número que representa o estudante (string) | retorna se um determinado estudante está presente na classe ou não |
+
+Para instanciá-la:
+```python
+nova_turma = ClassType(<número_da_turma>)
+```
 
 #### **:gear: src/server/server.py**
 TO DO
