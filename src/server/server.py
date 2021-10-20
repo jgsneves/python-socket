@@ -1,5 +1,6 @@
 import socket
 import threading
+from datetime import datetime
 
 class Server:
     def __init__(self, class_service) -> None:
@@ -41,14 +42,15 @@ class ClassService:
             return True
 
     def handle_teacher_message(self, message: str):
+        currentDateAndTime = datetime.now().strftime("%d/%m/%Y às %H:%M")
         if self.current_class == '':
             self.current_class = message
-            return f'A chamada da turma {self.current_class} está ativa!'
+            return f'A chamada da turma {self.current_class} foi ativada em {currentDateAndTime}!'
         else:
             if message == self.current_class:
                 class_name = self.current_class
                 self.current_class = ''
-                return f'A chamada da turma {class_name} está encerrada! Os seguintes alunos registraram presença: {self.present_students}'
+                return f'A chamada da turma {class_name} foi encerrada em {currentDateAndTime}! Os seguintes alunos registraram presença: {self.present_students}'
             else:
                 return 'Comando inválido!'
 
