@@ -5,6 +5,7 @@
 Este repositório tem o objetivo de explicar, na prática, o que é um socket e ensinar como implementá-lo utilizando o [Python](https://www.python.org/)
 
 ## O que é um socket?
+O ```socket``` é um nó. É um ponto de comunicação entre dois sistemas distribuídos. Sistema é um software e sistema distribuído é uma aplicação que somente é completa com a utilização de mais de um programa localizado em máquinas diferentes (claro que podemos simular duas localizações distintas em uma mesma máquina, como é o caso dessa aplicação deste respositório). É legal pensar o ```socket``` como um container, dentro de um navio. Este navio sai de um ponto A para o ponto B e o container contém uma mensagem que precisamos trafegar entre os pontos A e B. Geralmente utilizamos o ```socket``` dentro do protocolo IP. O IP é o endereço numérico de toda máquina conectada a uma rede. Assim, cada ```socket``` possui, como metadado, o endereço de ip, a porta de comunicação e protocolo de comunicação utilizado dos pontos A e B.
 
 ## Onde utilizamos o socket?
 
