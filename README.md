@@ -1,3 +1,4 @@
+<img src="https://www.python.org/static/img/python-logo.png" />
 # Python Socket
 
 ## O que é este repositório?
