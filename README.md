@@ -431,6 +431,7 @@ class Service:
             if item.number == class_number:
                 return item.present_students
 
+
     def handle_teacher_message(self, message: str):
         currentDateAndTime = datetime.now().strftime("%d/%m/%Y às %H:%M")
 
@@ -452,8 +453,10 @@ class Service:
         if self.is_class_active(class_number):
             for item in self.active_classes:
                 if item.number == class_number:
-                    item.add_student(student_number)
-                break
+                    if item.is_student_present(student_number):
+                        return f'Você já registrou sua presença nesta turma!'
+                    else:
+                        item.add_student(student_number)
             return f'Presença registrada com sucesso na turma {class_number} em {currentDateAndTime}!'
         else:
             return f'Esta turma não está com presença ativa. Solicitação rejeitada em {currentDateAndTime}'
@@ -495,6 +498,9 @@ A depender do tipo de cliente (`client_code`), adota-se um dos caminhos de trata
 | handle_teacher_message     | message: string. Mensagem do cliente professor       | Maneja a mensagem do professor                           |
 | handle_student_message     | message: string. Mensagem do cliente estudante       | Maneja a mensagem do estudante                           |
 | handle_message             | decoded_data: string. Mensagem do socket             | Maneja a mensagem do socket                              |
+
+### **:watch: Aplicação em execução**
+
 
 ## **:round_pushpin: Referências**
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
