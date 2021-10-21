@@ -322,6 +322,7 @@ class ClassType:
 | present_students | array   | lista contendo todos os números de identificação dos estudantes         |
 
 *2) métodos*
+
 | método             | parâmetros                                                 | descrição                                                          |
 |--------------------|------------------------------------------------------------|--------------------------------------------------------------------|
 | open               | None                                                       | modifica o atributo is_openeded para True                          |
@@ -336,7 +337,62 @@ nova_turma = ClassType(<número_da_turma>)
 ```
 
 #### **:gear: src/server/server.py**
-TO DO
+Este módulo implementa, de fato, o servidor da nossa aplicação. Ele é instanciado no script do `index.py`.
+
+```python
+import socket
+import threading
+
+class Server:
+    def __init__(self, class_service) -> None:
+        self.PORT = 5050
+        self.HOST = socket.gethostbyname(socket.gethostname())
+        self.ADDRESS = (self.HOST, self.PORT)
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.service = class_service
+
+    def run(self):
+        self.server.bind(self.ADDRESS)
+        self.server.listen()
+        print('Servidor está escutando...')
+        while True:
+            connection, client = self.server.accept()
+            print('Cliente conectado: ', client)
+            thread = threading.Thread(target=self.handle_connection, args=(connection, client))
+            thread.start()
+
+    def handle_connection(self, connection: socket, _):
+        while True:
+            data: bytes = connection.recv(1024)
+            decoded_data = data.decode()
+            response: str = self.service.handle_message(decoded_data)
+            print(response)
+            encoded_response = response.encode()
+            connection.send(encoded_response)
+
+```
+Ele é instanciado com atributos em valores fixos, que são os mesmos valores de porta, IP, e o socket do tipo `TCP/IP` dos clientes. Como informado anteriormente, essas informações devem ser idênticas aos sockets dos clientes, possibilitando a conexão entre eles. O único valor variável é do `service`, que é um objeto instanciado de um `Service`, que será explicado posteriormente.
+
+```
+novo_servidor = Server(<objeto_de_Service>)
+```
+
+*1) atributos*
+
+| atributos | tipagem            | descrição                                    |
+|----------:|--------------------|----------------------------------------------|
+| PORT      | int                | A porta utilizada para conexão entre sockets |
+| HOST      | string             | O endereço de IP para conexão entre sockets  |
+| ADDRESS   | tuple              | tupla com os dados de HOST e PORT            |
+| server    | socket             | O socket do tipo SOCK_STREAM (TCP/IP)        |
+| service   | instanceof Service | Objeto da classe Service()                   |
+
+*2) métodos*
+
+|           métodos | parâmetros         | descrição                                                                                  |
+|------------------:|--------------------|--------------------------------------------------------------------------------------------|
+| run               | None               | Executa de fato o servidor. Em estado de escuta de requisições                             |
+| handle_connection | connection: socket | Manejar cada requisição: criar uma nova thread para cada requisição e tratar com o Service |
 
 #### **:gear: src/services/service.py**
 TO DO
