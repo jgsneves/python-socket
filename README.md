@@ -513,6 +513,7 @@ Em um terminal, digite o seguinte comando na raiz do projeto:
 ```
 python src/index.py
 ```
+
 ![Terminal de servidor](https://i.ibb.co/DrzRHfk/server-is-running.png)
 
 #### 2) Rodar o teacher.py
@@ -520,9 +521,11 @@ Abra outro terminal e digite o seguinte comando na raiz do projeto:
 ```
 python src/clients/teacher.py
 ```
+
 ![Terminal do professor](https://i.ibb.co/TTCnQWP/professor.png)
 
 Pode repetir o processo quantas vezes forem necessárias. O sistema suporta múltiplos professores conectados ao mesmo tempo. Basta informar o número da turma que deseja iniciar a chamada. Um único professor pode também abrir mais de uma chamada ao mesmo tempo.
+
 ![Professor fim fluxo](https://i.ibb.co/JRwNgcV/professor-fim.png)
 
 #### 3) Rodar o student.py
@@ -530,7 +533,9 @@ Mais uma vez, abra outro terminal e digite o seguinte comando na raiz do projeto
 ```
 python src/clients/student.py
 ```
+
 ![Terminal do aluno](https://i.ibb.co/7gBQDDX/aluno.png)
+
 Pode repetir o processo quantas vezes forem necessárias. O sistema suporta múltiplos alunos conectados ao mesmo tempo. Basta informar o número da matrícula e o número da matéria que seja registrar presença. Caso o número da turma informado não coincidir com nenhuma turma aberta, o sistema informará o erro. Caso positivo, registrará a presença do aluno.
 
 Múltiplos alunos podem registrar presença no mesmo script, sem necessidade de instanciar um único cliente para cada aluno.
