@@ -513,22 +513,28 @@ Em um terminal, digite o seguinte comando na raiz do projeto:
 ```
 python src/index.py
 ```
+![Terminal de servidor](https://drive.google.com/file/d/1fyTHaHGAFLVAyASySTugeCQWvML_yo-k/view?usp=sharing)
 
 #### 2) Rodar o teacher.py
 Abra outro terminal e digite o seguinte comando na raiz do projeto:
 ```
 python src/clients/teacher.py
 ```
+![Terminal do professor](https://drive.google.com/file/d/1OreB7fiZ77DwP-wp8wk5BPEjPSflzRuH/view?usp=sharing)
+
 Pode repetir o processo quantas vezes forem necessárias. O sistema suporta múltiplos professores conectados ao mesmo tempo. Basta informar o número da turma que deseja iniciar a chamada. Um único professor pode também abrir mais de uma chamada ao mesmo tempo.
+![Professor fim fluxo](https://drive.google.com/file/d/15oZ34JLm8QgLEChs2bbwN5izPiRsmcv0/view?usp=sharing)
 
 #### 3) Rodar o student.py
 Mais uma vez, abra outro terminal e digite o seguinte comando na raiz do projeto:
 ```
 python src/clients/student.py
 ```
+![Terminal do aluno](https://drive.google.com/file/d/1aOfsdDddyB4fv5HRHO7LMOS8Pn1zLj3U/view?usp=sharing)
 Pode repetir o processo quantas vezes forem necessárias. O sistema suporta múltiplos alunos conectados ao mesmo tempo. Basta informar o número da matrícula e o número da matéria que seja registrar presença. Caso o número da turma informado não coincidir com nenhuma turma aberta, o sistema informará o erro. Caso positivo, registrará a presença do aluno.
 
 Múltiplos alunos podem registrar presença no mesmo script, sem necessidade de instanciar um único cliente para cada aluno.
+![Aluno fim fluxo](https://drive.google.com/file/d/1blrqw0khNedKlsn9DXgzOgjF79FWwgI8/view?usp=sharing)
 
 ## **:round_pushpin: Referências**
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
