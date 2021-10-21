@@ -231,6 +231,12 @@ Para executar este `client`, basta executar o seguinte comando da raiz do projet
 python src/clients/student.py
 ```
 
+A função `use_client_code()` basicamente parseia a mensagem que será enviada em um arquétipo combinado em contrato com o `servidor`. A mensagem enviada segue o modelo de ser uma string que possui o `input` do usuário, uma vírgula e o código do cliente:
+
+```javascript
+"<input>,<client_code>"
+```
+
 #### **:gear: src/clients/teacher.py**
 O módulo responsável por implementar o script do professor. Este usuário ativa e desativa lista de presença de aulas/turmas/classes.
 
@@ -395,7 +401,100 @@ novo_servidor = Server(<objeto_de_Service>)
 | handle_connection | connection: socket | Manejar cada requisição: criar uma nova thread para cada requisição e tratar com o Service |
 
 #### **:gear: src/services/service.py**
-TO DO
+O único [serviço](https://www.oficinadanet.com.br/artigo/desenvolvimento/o_que_e_soa_arquitetura_orientada_a_servicos) da aplicação. É o módulo que trata a mensagem que chega do cliente. 
+
+```python
+from datetime import datetime
+
+from models.classtype import ClassType
+
+class Service:
+    def __init__(self) -> None:
+        self.active_classes = []
+
+    def add_class(self, class_obj):
+        self.active_classes.append(class_obj)
+
+    def remove_class(self, class_number):
+        for item in self.active_classes:
+            if item.number == class_number:
+                self.active_classes.remove(item)
+
+    def is_class_active(self, class_number):
+        for item in self.active_classes:
+            if item.number == class_number:
+                return True
+        return False
+
+    def get_class_present_students(self, class_number):
+        for item in self.active_classes:
+            if item.number == class_number:
+                return item.present_students
+
+    def handle_teacher_message(self, message: str):
+        currentDateAndTime = datetime.now().strftime("%d/%m/%Y às %H:%M")
+
+        if self.is_class_active(message):
+            present_students = self.get_class_present_students(message)
+            self.remove_class(message)
+            return f'A chamada da turma {message} foi encerrada em {currentDateAndTime}! Os seguintes alunos registraram presença: {present_students}'
+        else:
+            new_class = ClassType(message)
+            self.add_class(new_class)
+            return f'A chamada da turma {message} foi ativada em {currentDateAndTime}!'
+
+    def handle_student_message(self, message: str):
+        currentDateAndTime = datetime.now().strftime("%d/%m/%Y às %H:%M")
+        student_infos = message.split('/')
+        student_number = student_infos[0]
+        class_number = student_infos[1]
+
+        if self.is_class_active(class_number):
+            for item in self.active_classes:
+                if item.number == class_number:
+                    item.add_student(student_number)
+                break
+            return f'Presença registrada com sucesso na turma {class_number} em {currentDateAndTime}!'
+        else:
+            return f'Esta turma não está com presença ativa. Solicitação rejeitada em {currentDateAndTime}'
+
+    def handle_message(self, decoded_data: str):
+        message_list = decoded_data.split(',')
+        client_message: str = message_list[0]
+        client_code: str = message_list[1]
+
+        if client_code == 'teacher':
+            return self.handle_teacher_message(client_message)
+        else:
+            return self.handle_student_message(client_message)
+
+```
+
+Primeiro ele identifica o remetente tratando a mensagem que chega do cliente com o método `handle_message()`: se é um cliente `professor` ou `aluno`. Isso é feito analisando o conteúdo da mensagem. Todas as mensagens seguem o seguinte arquétipo:
+
+```javascript
+"<input>,<client_code>"
+```
+
+A depender do tipo de cliente (`client_code`), adota-se um dos caminhos de tratamento de dados: se o cliente for um `professor`, a mensagem é tratada pela `handle_teacher_message()`, caso contrário, pelo método `handle_student_message()`. Os outros métodos são mais auxiliares. Vamos ao detalhamento da classe:
+
+*1) atributos*
+
+| atributo       | tipagem | descrição               |
+|----------------|---------|-------------------------|
+| active_classes | array   | lista de classes ativas |
+
+*2) métodos*
+
+|                    métodos | parâmetros                                           | descrição                                                |
+|---------------------------:|------------------------------------------------------|----------------------------------------------------------|
+| add_class                  | class_obj: instanceof ClassType()                    | Adiciona nova classe à lista de classes ativas           |
+| remove_class               | class_number: string. Número identificador da classe | Remove uma classe da lista de classes ativas pelo número |
+| is_class_active            | class_number: string. Número identificador da classe | Verifica se uma class está na lista de classes ativas    |
+| get_class_present_students | class_number: string. Número identificador da classe | Fornece a lista de estudantes presentes na classe        |
+| handle_teacher_message     | message: string. Mensagem do cliente professor       | Maneja a mensagem do professor                           |
+| handle_student_message     | message: string. Mensagem do cliente estudante       | Maneja a mensagem do estudante                           |
+| handle_message             | decoded_data: string. Mensagem do socket             | Maneja a mensagem do socket                              |
 
 ## **:round_pushpin: Referências**
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
@@ -405,3 +504,4 @@ TO DO
 - [HOWTO: socket em python](https://docs.python.org/pt-br/3/howto/sockets.html)
 - [Python Socket Programming Tutorial](https://www.youtube.com/watch?v=3QiPPX-KeSc) - [@TechWithTimm](https://twitter.com/TechWithTimm)
 - [Whats the OSI model?](https://www.freecodecamp.org/news/osi-model-computer-networking-for-beginners/)
+- [What's SOA](https://www.oficinadanet.com.br/artigo/desenvolvimento/o_que_e_soa_arquitetura_orientada_a_servicos)
