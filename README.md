@@ -530,11 +530,11 @@ Mais uma vez, abra outro terminal e digite o seguinte comando na raiz do projeto
 ```
 python src/clients/student.py
 ```
-![Terminal do aluno](https://drive.google.com/file/d/1aOfsdDddyB4fv5HRHO7LMOS8Pn1zLj3U/view?usp=sharing)
+![Terminal do aluno](https://ibb.co/N1frqqs)
 Pode repetir o processo quantas vezes forem necessárias. O sistema suporta múltiplos alunos conectados ao mesmo tempo. Basta informar o número da matrícula e o número da matéria que seja registrar presença. Caso o número da turma informado não coincidir com nenhuma turma aberta, o sistema informará o erro. Caso positivo, registrará a presença do aluno.
 
 Múltiplos alunos podem registrar presença no mesmo script, sem necessidade de instanciar um único cliente para cada aluno.
-![Aluno fim fluxo](https://drive.google.com/file/d/1blrqw0khNedKlsn9DXgzOgjF79FWwgI8/view?usp=sharing)
+![Aluno fim fluxo](https://ibb.co/FBMJQ2M)
 
 ## **:round_pushpin: Referências**
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
