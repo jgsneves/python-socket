@@ -1,18 +1,18 @@
 ![Python](https://cafeinacodificada.com.br/wp-content/uploads/2018/04/Post1_pt21.png)
 # Python Socket
-Bem vindo! Espero que o conteúdo aqui apresentado lhe auxilie a entender melhor o funcionamento de um Socket e como implementá-lo em Python.
+Bem vindo! O objetivo deste conteúdo é auxiliar a entender melhor o funcionamento de um Socket e como implementá-lo em Python.
 
 ## **:question: O que é este repositório?**
-Este repositório é fruto de uma atividade avaliativa do curso de Análise e Desenvolvimento de Sistemas, na disciplina de Sistemas Distribuídos, ministrada pelo professor Eduardo Xavier. A intenção deste é explicar, na prática, o que é um socket e ensinar como implementá-lo utilizando a linguagem [Python](https://www.python.org/)
+Este repositório é fruto de uma atividade avaliativa da disciplina de Sistemas Distribuídos, ministrada pelo professor Eduardo Xavier, na Universidade Salvador (UNIFACS). A intenção deste é explicar, na prática, o que é um socket e ensinar como implementá-lo utilizando a linguagem [Python](https://www.python.org/)
 
 ## **:raising_hand_man: Integrantes da equipe/contribuintes**
 - João Gabriel Santos Neves - matrícula UNIFACS: 042191010 - [Github](https://github.com/jgsneves)
 
 ## **:clipboard: Requerimentos Mínimos de Software**
-O que você precisa fazer para executar este software
+O que você precisa fazer para executar este software.
 
 ## **:pushpin: Instalação do Git**
-Caso você deseje baixar os arquivos deste respositório via git, você precisa ter o [git](https://git-scm.com/) caso deseje clonar este repositório para um diretório local. Siga o passo a passo abaixo a depender de qual sistema operacional você utilize:
+Caso você deseje baixar os arquivos deste respositório via git, você precisa ter o [git](https://git-scm.com/) instalado para clona-lo em um diretório local. Siga o passo a passo abaixo, a depender de qual sistema operacional você utilize:
 
 ### Windows
 Faça o download do instalador na página oficial do git e instale em sua máquina normalmente.
@@ -65,7 +65,7 @@ Abra um terminal para cada socket (um para professor, outro para aluno e outro p
 ## **:mailbox_with_mail: O que é um socket?**
 O `socket` é um nó. É um ponto de comunicação entre dois sistemas distribuídos. Sistema é um software e sistema distribuído é uma aplicação que somente é completa com a utilização de mais de um programa localizado em máquinas diferentes (claro que podemos simular duas localizações distintas em uma mesma máquina, como é o caso dessa aplicação deste respositório). 
 
-É legal pensar o ```socket``` como um container, dentro de um navio. Este navio sai de um ponto A para o ponto B e o container contém uma mensagem que precisamos trafegar entre os pontos A e B. Geralmente utilizamos o ```socket``` em conjunto com o protocolo IP, que é responsável por endereçar toda máquina dentro de uma rede. O IP é o endereço numérico de toda máquina conectada a uma rede. Assim, cada ```socket``` possui, como metadado, o endereço de ip, a porta de comunicação e protocolo de comunicação utilizado dos pontos A e B.
+É legal pensar o ```socket``` como um container, dentro de um navio. Este navio sai de um ponto A para o ponto B e o container contém uma mensagem que precisamos trafegar entre os pontos A e B. Geralmente utilizamos o ```socket``` em conjunto com o protocolo IP, que é responsável por endereçar toda máquina dentro de uma rede. O IP é o endereço numérico de toda máquina conectada a uma rede. Assim, cada ```socket``` possui, como `metadado`, o endereço de ip, a porta de comunicação e protocolo de comunicação utilizado dos pontos A e B.
 
 > *OBS: metadado é um dado que não faz parte do conteúdo de uma informação, apenas representando uma informação complementar. Por exemplo: em uma carta, o seu conteúdo é um dado e as informações de endereço do remetente e do destinatário são metadados.*
 
@@ -79,11 +79,11 @@ A imagem abaixo ilustra bem onde os protocolos TCP/UDP agem nesse fluxo de infor
 ![Osi Models](https://www.freecodecamp.org/news/content/images/2021/10/osi-model-layers.png)
 
 ## **:thread: O que é concorrência (multithread)?**
-Falar de concorrência é falar de paralelismo. É a capacidade do computador processar mais de um dado ao mesmo tempo. Aqui não se fala apenas de velocidade de processamento (afinal, com o multithread, o computador conseguiria realizar mais de uma tarefa ao mesmo tempo, realizando aquilo que se propõe de forma mais célere), mas também na possibilidade de criar programas básicos.
+Falar de concorrência é falar de paralelismo. É a capacidade do computador processar mais de um dado ao mesmo tempo. Aqui não se fala apenas de velocidade de processamento (afinal, com o multithread, o computador conseguiria realizar mais de uma tarefa ao mesmo tempo, realizando aquilo que se propõe de forma mais célere), mas também na possibilidade de criar programas básicos que necessitem de processamento concorrente.
 
 Em um programa muito básico, onde todas as instruções ocorrem de cima para baixo, em sequência, o multithread não faz falta. O computador executa todas as instruções e chega ao fim. Porém, quando precisamos criar programas um pouco mais complexos, como é o caso desse repositório, precisamos que o computador reserve atenção a mais de uma execução (aqui, nós temos um servidor e 2 clientes conectando a ele ao mesmo tempo).
 
-Para escutar dois clientes ao mesmo tempo, por exemplo, o processador deve reservar uma thread para cada requisição. Caso não houvesse o multithread, não seria possível conectar mais de um cliente no mesmo servidor, e ao mesmo tempo.
+Para escutar dois clientes e um servidor ao mesmo tempo, por exemplo, o processador deve reservar uma thread para cada requisição e outra para executar o servidor. Caso não houvesse o multithread, não seria possível conectar mais de um cliente no mesmo servidor, e ao mesmo tempo.
 
 ## **:thread: Diferença entre ```thread``` e ```process```**
 Os dois referem-se a processamento. Porém, um `process` tem uma ou mais `threads`. O processo aloca recursos computacionais (processamento, memória, etc) para realizar uma ou mais `threads`, enquanto que esta última é uma unidade básica de processamento. Quando executamos um script python, por exemplo, utilizamos uma thread de um processo.
@@ -222,16 +222,20 @@ while True:
     print(decoded_response)
 
 ```
-Este módulo implementa um `socket` com as configuraçõe do servidor (tem que ser um match perfeito entre porta, endereço e tipo de socket). Depois solicita dois `inputs` do usuário: 1) número de matrícula e 2) número da matéria que ele deseja registrar a presença. Depois os `inputs` são parseados em uma `string` que os separa por uma barra `/`.
+Este módulo implementa um `socket` com as configurações do servidor (tem que ser um match perfeito entre porta, endereço e tipo de socket). O método `socket.gethostbyname(socket.gethostname())` busca o `IP address` da máquina quee está executando o script. Em outras palavras, é o mesmo que usar `localhost`.
 
-Após codificar esta `string` em `bytes` (o socket apenas aceita trafegar dados em `bytes`), o envia para o servidor e fica aguardando o feeedback (a resposta) do mesmo. Após a chegada da resposta, esta é decodificada de `bytes` para `string` e printada na tela.
+O método `socket.socket(socket.AF_INET, socket.SOCK_STREAM)` cria um `socket` do tipo `TCP/IP`.
+
+Após a criação do `socket`, o script solicita dois `inputs` do usuário: **1) número de matrícula** e **2) número da matéria que ele deseja registrar a presença**. Depois os `inputs` são parseados em uma `string` que os separa por uma barra `/`.
+
+Como o `socket` trafega apenas com dados no formato de `bytes`, o script codifica a `string` em `bytes` através do método `str.encode()`, o envia para o servidor e fica aguardando o feeedback (a resposta) do mesmo. Após a chegada da resposta, esta é decodificada de `bytes` para `string` e printada na tela.
 
 Para executar este `client`, basta executar o seguinte comando da raiz do projeto:
 ```
 python src/clients/student.py
 ```
 
-A função `use_client_code()` basicamente parseia a mensagem que será enviada em um arquétipo combinado em contrato com o `servidor`. A mensagem enviada segue o modelo de ser uma string que possui o `input` do usuário, uma vírgula e o código do cliente:
+A função `use_client_code()` basicamente parseia a mensagem que será enviada de acordo com o modelo combinado em contrato com o `servidor`. A mensagem enviada segue o modelo de ser uma string que possui o `input` do usuário, uma vírgula e o código do cliente:
 
 ```javascript
 "<input>,<client_code>"
@@ -281,7 +285,7 @@ while True:
     print(decoded_response)
 
 ```
-Mais uma vez, inicialmente setamos as informações do servidor e criamos um `socket` do tipo `TCP/IP` para realizar a conexão. Basicamente o scrip solicita que o usuário informe o número da turma e, caso a chamada já esteja iniciada, ela será encerrada. O loop de repetição faz a mesma coisa que no cliente `student`: solicita um input, codifica em `bytes` e envia para o servidor.
+Mais uma vez, inicialmente setamos as informações do servidor e criamos um `socket` do tipo `TCP/IP` para realizar a conexão. Basicamente o script solicita que o usuário informe o número da turma e, caso a chamada daquela turma já esteja iniciada, ela será encerrada. O loop de repetição faz a mesma coisa que o cliente `student`: solicita um input, codifica em `bytes` e envia para o servidor.
 
 Após, aguardará o retorno da resposta pelo `server` e printará no terminal depois de decodificá-la, já que todo o dado que transita pelo `socket` está na forma de `byte`.
 
@@ -323,7 +327,7 @@ class ClassType:
 
 | atributo         | tipagem | descrição                                                               |
 |------------------|---------|-------------------------------------------------------------------------|
-| number           | string  | o número que representa a turma. Número de identificação                |
+| number           | string  | o número que representa a turma. Número de identificação.               |
 | is_opened        | boolean | indicação se a chamada está ativa ou não. Se a turma está aberta ou não |
 | present_students | array   | lista contendo todos os números de identificação dos estudantes         |
 
@@ -400,6 +404,8 @@ novo_servidor = Server(<objeto_de_Service>)
 | run               | None               | Executa de fato o servidor. Em estado de escuta de requisições                             |
 | handle_connection | connection: socket | Manejar cada requisição: criar uma nova thread para cada requisição e tratar com o Service |
 
+Como precisamos multithread para tratar várias requisições ao mesmo, e o Python não tem comportamento multithread por padrão, precisamos importar o pacote `threading` e criar uma `thread` através do método `threading.Thread(target=self.handle_connection, args=(connection, client))`. Basicamente, ele recebe o método que gerencia cada requisição, o `handle_connection()` como primeiro argumento e a tupla `(connection, client)` que é recebida como resposta da função `<socket>.recv()`.
+
 #### **:gear: src/services/service.py**
 O único [serviço](https://www.oficinadanet.com.br/artigo/desenvolvimento/o_que_e_soa_arquitetura_orientada_a_servicos) da aplicação. É o módulo que trata a mensagem que chega do cliente. 
 
@@ -473,7 +479,7 @@ class Service:
 
 ```
 
-Primeiro ele identifica o remetente tratando a mensagem que chega do cliente com o método `handle_message()`: se é um cliente `professor` ou `aluno`. Isso é feito analisando o conteúdo da mensagem. Todas as mensagens seguem o seguinte arquétipo:
+Primeiro ele identifica o remetente tratando a mensagem que chega do cliente com o método `handle_message()`: se é um cliente `professor` ou `aluno`. Isso é feito analisando o conteúdo da mensagem. Todas as mensagens seguem o seguinte arquétipo, um contrato combinado com os `clients`:
 
 ```javascript
 "<input>,<client_code>"
@@ -500,7 +506,29 @@ A depender do tipo de cliente (`client_code`), adota-se um dos caminhos de trata
 | handle_message             | decoded_data: string. Mensagem do socket             | Maneja a mensagem do socket                              |
 
 ### **:watch: Aplicação em execução**
+Com tudo pronto, podemos executar a aplicação:
 
+#### 1) Rodar o servidor
+Em um terminal, digite o seguinte comando na raiz do projeto:
+```
+python src/index.py
+```
+
+#### 2) Rodar o teacher.py
+Abra outro terminal e digite o seguinte comando na raiz do projeto:
+```
+python src/clients/teacher.py
+```
+Pode repetir o processo quantas vezes forem necessárias. O sistema suporta múltiplos professores conectados ao mesmo tempo. Basta informar o número da turma que deseja iniciar a chamada. Um único professor pode também abrir mais de uma chamada ao mesmo tempo.
+
+#### 3) Rodar o student.py
+Mais uma vez, abra outro terminal e digite o seguinte comando na raiz do projeto:
+```
+python src/clients/student.py
+```
+Pode repetir o processo quantas vezes forem necessárias. O sistema suporta múltiplos alunos conectados ao mesmo tempo. Basta informar o número da matrícula e o número da matéria que seja registrar presença. Caso o número da turma informado não coincidir com nenhuma turma aberta, o sistema informará o erro. Caso positivo, registrará a presença do aluno.
+
+Múltiplos alunos podem registrar presença no mesmo script, sem necessidade de instanciar um único cliente para cada aluno.
 
 ## **:round_pushpin: Referências**
 - [Diferença entre thread e process](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
