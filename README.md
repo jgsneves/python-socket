@@ -534,6 +534,7 @@ python src/clients/student.py
 Pode repetir o processo quantas vezes forem necessárias. O sistema suporta múltiplos alunos conectados ao mesmo tempo. Basta informar o número da matrícula e o número da matéria que seja registrar presença. Caso o número da turma informado não coincidir com nenhuma turma aberta, o sistema informará o erro. Caso positivo, registrará a presença do aluno.
 
 Múltiplos alunos podem registrar presença no mesmo script, sem necessidade de instanciar um único cliente para cada aluno.
+
 ![Aluno fim fluxo](https://i.ibb.co/ZhPKQ5P/aluno-fim.png)
 
 ## **:round_pushpin: Referências**
