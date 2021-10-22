@@ -1,4 +1,4 @@
-![Python](https://cafeinacodificada.com.br/wp-content/uploads/2018/04/Post1_pt21.png)
+![Python](https://files.realpython.com/media/Python-Sockets-Tutorial_Watermarked.815ce6c85789.jpg)
 # Python Socket
 Bem vindo! O objetivo deste conteúdo é auxiliar a entender melhor o funcionamento de um Socket e como implementá-lo em Python.
 
@@ -448,8 +448,7 @@ class Service:
         if self.is_class_active(message):
             present_students = self.get_class_present_students(message)
             self.remove_class(message)
-            return f'A chamada da turma {message} foi encerrada em 
-            {currentDateAndTime}! Os seguintes alunos registraram presença: {present_students}'
+            return f'A chamada da turma {message} foi encerrada em {currentDateAndTime}! Os seguintes alunos registraram presença: {present_students}'
         else:
             new_class = ClassType(message)
             self.add_class(new_class)
@@ -468,8 +467,7 @@ class Service:
                         return f'Você já registrou sua presença nesta turma!'
                     else:
                         item.add_student(student_number)
-            return f'Presença registrada com sucesso 
-            na turma {class_number} em {currentDateAndTime}!'
+            return f'Presença registrada com sucesso na turma {class_number} em {currentDateAndTime}!'
         else:
             return f'Esta turma não está com presença ativa. 
             Solicitação rejeitada em {currentDateAndTime}'
