@@ -213,7 +213,8 @@ def use_client_code(msg, client_code):
 
 while True:
     user_number = input('Informe seu número de matrícula: ')
-    user_class = input('Informe o número da matéria em que deseja registrar presença: ')
+    user_class = input('Informe o número da matéria
+    em que deseja registrar presença: ')
     msg = str(user_number + '/' + user_class)
     encoded_package = str.encode(use_client_code(msg, client_code))
     client.send(encoded_package)
@@ -368,7 +369,10 @@ class Server:
         while True:
             connection, client = self.server.accept()
             print('Cliente conectado: ', client)
-            thread = threading.Thread(target=self.handle_connection, args=(connection, client))
+            thread = threading.Thread(
+                target=self.handle_connection, 
+                args=(connection, client)
+            )
             thread.start()
 
     def handle_connection(self, connection: socket, _):
@@ -444,7 +448,8 @@ class Service:
         if self.is_class_active(message):
             present_students = self.get_class_present_students(message)
             self.remove_class(message)
-            return f'A chamada da turma {message} foi encerrada em {currentDateAndTime}! Os seguintes alunos registraram presença: {present_students}'
+            return f'A chamada da turma {message} foi encerrada em 
+            {currentDateAndTime}! Os seguintes alunos registraram presença: {present_students}'
         else:
             new_class = ClassType(message)
             self.add_class(new_class)
@@ -463,9 +468,11 @@ class Service:
                         return f'Você já registrou sua presença nesta turma!'
                     else:
                         item.add_student(student_number)
-            return f'Presença registrada com sucesso na turma {class_number} em {currentDateAndTime}!'
+            return f'Presença registrada com sucesso 
+            na turma {class_number} em {currentDateAndTime}!'
         else:
-            return f'Esta turma não está com presença ativa. Solicitação rejeitada em {currentDateAndTime}'
+            return f'Esta turma não está com presença ativa. 
+            Solicitação rejeitada em {currentDateAndTime}'
 
     def handle_message(self, decoded_data: str):
         message_list = decoded_data.split(',')
