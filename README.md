@@ -5,8 +5,9 @@ Bem vindo! O objetivo deste conteúdo é auxiliar a entender melhor o funcioname
 ## **:question: O que é este repositório?**
 Este repositório é fruto de uma atividade avaliativa da disciplina de Sistemas Distribuídos, ministrada pelo professor Eduardo Xavier, na Universidade Salvador (UNIFACS). A intenção deste é explicar, na prática, o que é um socket e ensinar como implementá-lo utilizando a linguagem [Python](https://www.python.org/)
 
-## **:raising_hand_man: Integrantes da equipe/contribuintes**
-- João Gabriel Santos Neves - matrícula UNIFACS: 042191010 - [Github](https://github.com/jgsneves)
+## **:bust_in_silhouette: Integrantes da equipe**
+- [João Gabriel Santos Neves](https://github.com/jgsneves) - matrícula UNIFACS: 042191010
+- [Thiago Côrtes dos Santos](https://github.com/DrTCortes) - matrícula UNIFACS: 205182055
 
 ## **:clipboard: Requerimentos Mínimos de Software**
 O que você precisa fazer para executar este software.
@@ -55,7 +56,7 @@ Siga as instruções contidas neste [manual](https://python.org.br/instalacao-li
 ### MacOS
 Siga as instruções contidas neste [manual](https://python.org.br/instalacao-mac/) criado pela python brasil.
 
-## **:paintbrush: Execução dos arquivos python**
+## **:alarm_clock: Execução dos arquivos python**
 Depois do compilador Python instalado, executaremos cada arquivo do servidor e dos clientes, usando o seguinte comando:
 
 ```python <path_do_arquivo>```
@@ -78,37 +79,37 @@ Basicamente, entendemos que o `socket` é um conteiner dentro de um navio. O map
 A imagem abaixo ilustra bem onde os protocolos TCP/UDP agem nesse fluxo de informação:
 ![Osi Models](https://www.freecodecamp.org/news/content/images/2021/10/osi-model-layers.png)
 
-## **:thread: O que é concorrência (multithread)?**
+## **:telescope: O que é concorrência (multithread)?**
 Falar de concorrência é falar de paralelismo. É a capacidade do computador processar mais de um dado ao mesmo tempo. Aqui não se fala apenas de velocidade de processamento (afinal, com o multithread, o computador conseguiria realizar mais de uma tarefa ao mesmo tempo, realizando aquilo que se propõe de forma mais célere), mas também na possibilidade de criar programas básicos que necessitem de processamento concorrente.
 
 Em um programa muito básico, onde todas as instruções ocorrem de cima para baixo, em sequência, o multithread não faz falta. O computador executa todas as instruções e chega ao fim. Porém, quando precisamos criar programas um pouco mais complexos, como é o caso desse repositório, precisamos que o computador reserve atenção a mais de uma execução (aqui, nós temos um servidor e 2 clientes conectando a ele ao mesmo tempo).
 
 Para escutar dois clientes e um servidor ao mesmo tempo, por exemplo, o processador deve reservar uma thread para cada requisição e outra para executar o servidor. Caso não houvesse o multithread, não seria possível conectar mais de um cliente no mesmo servidor, e ao mesmo tempo.
 
-## **:thread: Diferença entre ```thread``` e ```process```**
+## **:telescope: Diferença entre ```thread``` e ```process```**
 Os dois referem-se a processamento. Porém, um `process` tem uma ou mais `threads`. O processo aloca recursos computacionais (processamento, memória, etc) para realizar uma ou mais `threads`, enquanto que esta última é uma unidade básica de processamento. Quando executamos um script python, por exemplo, utilizamos uma thread de um processo.
 
 Nesse nosso repositório, criamos uma `thread` para processar o script e uma para cada conexão de cada cliente (professor e aluno). Caso não houvesse a possibilidade de fazer esse paralelismo, quando o professor se conectasse, seria necessário encerrar a conexão deste para que qualquer aluno pudesse se conectar e registrar sua presença. Não é esse o comportamento esperado.
 
-## **:running_man: Vamos pro código!**
+## **:running: Vamos pro código!**
 Agora que abordamos os conceitos básicos, vamos para o código! 
 
 ### **:open_file_folder: Estrutura de pastas (arquitetura)**
 ```javascript
-src--|
-    clients---|
-        student.py      //implementação do cliente-estudante
-        teacher.py      //implementação do cliente-professor
-    models----|
-        classtype.py    //modelo de uma turma/classe
-    server----|
-        server.py       //implementação do servidor
-    services--|
-        service.py      //implementação do serviço de controle de chamada
-    index.py            //o script que deve ser executado para abrir o servidor
+src
+|---clients
+|       |--student.py      //implementação do cliente-estudante
+|       |--teacher.py      //implementação do cliente-professor
+|---models
+|       |--classtype.py    //modelo de uma turma/classe
+|---server
+|       |--server.py       //implementação do servidor
+|---services
+|       |--service.py      //implementação do serviço de controle de chamada
+|---index.py        //o script que deve ser executado para abrir o servidor
 ```
 
-### **:man_teacher: Explicando a aplicação**
+### **:bulb: Explicando a aplicação**
 Cada equipe deve criar um aplicativo de CHAMADA para uma turma de alunos utilizando sockets. O aplicativo deve funcionar da seguinte maneira:
 
     • Há dois tipos de clientes: professor e aluno.
@@ -163,9 +164,9 @@ confirmação adequada ao aluno (identificação da turma, a data e a hora em qu
 
 • Caso a chamada não exista (professor não iniciou ou já encerrou a chamada da turma) apenas devolve a resposta adequada ao aluno ( zero em lugar da identificação da turma, a data e a hora em que a presença foi negada).
 
-### **:package: Componentes da aplicação**
+### **:dvd: Componentes da aplicação**
 
-#### **:gear: index.py**
+#### **:wrench: index.py**
 É o script que deve ser executado para rodar o `server`. Rodar o comando na pasta root do projeto:
 ```
 python src/index.py
@@ -184,7 +185,7 @@ new_server.run()
 ```
 Ele importa o serviço e passa sua instância no construtor do servidor. Após o instanciamento do server, executa o método `run()` para rodar o servidor.
 
-#### **:gear: src/clients/student.py**
+#### **:wrench: src/clients/student.py**
 Implementação do cliente de estudante. Este cliente tenta registrar presença na lista de uma turma/classe.
 
 ```python
@@ -242,7 +243,7 @@ A função `use_client_code()` basicamente parseia a mensagem que será enviada 
 "<input>,<client_code>"
 ```
 
-#### **:gear: src/clients/teacher.py**
+#### **:wrench: src/clients/teacher.py**
 O módulo responsável por implementar o script do professor. Este usuário ativa e desativa lista de presença de aulas/turmas/classes.
 
 ```python
@@ -295,7 +296,7 @@ Para executar este script, execute este comando na raiz do projeto:
 python src/clients/teacher.py
 ```
 
-#### **:gear: src/models/classtype.py**
+#### **:wrench: src/models/classtype.py**
 A primeira e única model do repositório. Ela representa uma aula (classe ou matéria, como queira se referir) e tem seus métodos.
 
 ```python
@@ -347,7 +348,7 @@ Para instanciá-la:
 nova_turma = ClassType(<número_da_turma>)
 ```
 
-#### **:gear: src/server/server.py**
+#### **:wrench: src/server/server.py**
 Este módulo implementa, de fato, o servidor da nossa aplicação. Ele é instanciado no script do `index.py`.
 
 ```python
@@ -410,7 +411,7 @@ novo_servidor = Server(<objeto_de_Service>)
 
 Como precisamos multithread para tratar várias requisições ao mesmo, e o Python não tem comportamento multithread por padrão, precisamos importar o pacote `threading` e criar uma `thread` através do método `threading.Thread(target=self.handle_connection, args=(connection, client))`. Basicamente, ele recebe o método que gerencia cada requisição, o `handle_connection()` como primeiro argumento e a tupla `(connection, client)` que é recebida como resposta da função `<socket>.recv()`.
 
-#### **:gear: src/services/service.py**
+#### **:wrench: src/services/service.py**
 O único [serviço](https://www.oficinadanet.com.br/artigo/desenvolvimento/o_que_e_soa_arquitetura_orientada_a_servicos) da aplicação. É o módulo que trata a mensagem que chega do cliente. 
 
 ```python
